@@ -4,13 +4,17 @@
 
     type Features = "x" | "y"
 
-    let mouseX = 0;
-    let mouseY = 0;
+    let loaded = false;
+
+    let mouseCX = 0;
+    let mouseCY = 0;
+    let uVectorX = 1 / Math.sqrt(2);
+    let uVectorY = 1 / Math.sqrt(2);
 
     onMount(async () => {
         let svg_full = d3.select("#full");
-        let width = 750;
-        let height = 400;
+        let width = 800;
+        let height = 600;
         let inner_border = 50;
 
         svg_full.attr("width", width);
@@ -25,7 +29,7 @@
 
         function ready(raw_data: d3.DSVRowArray<Features>) {
 
-            const data = raw_data.map((d) => {
+            let data = raw_data.map((d) => {
                 return {
                     "x": Number(d.x),
                     "y": Number(d.y)
@@ -48,6 +52,8 @@
             function y2CY(y: number) {
                 const real_height = height - 2 * inner_border;
                 const percentage = (y - min_y) / (max_y - min_y);
+                // need to invert the percentage
+                // return (1 - percentage) * real_height + inner_border;
                 return percentage * real_height + inner_border;
             }
 
@@ -77,15 +83,125 @@
                 .append("circle")
                 .attr("cx", (d) => x2CX(d.x))
                 .attr("cy", (d) => y2CY(d.y))
-                .attr("r", 2)
+                .attr("r", 3)
                 .attr("fill", "blue");
+
+            // plot the u vector direction
+            svg_full.append("line")
+                .attr("id", "uVector")
+                .attr("x1", x2CX(uVectorX * -10000))
+                .attr("y1", y2CY(uVectorY * -10000))
+                .attr("x2", x2CX(uVectorX * 10000))
+                .attr("y2", y2CY(uVectorY * 10000))
+                .attr("stroke", "red")
+                .attr("stroke-width", 3)
+                .attr("opacity", 0.5);
+
+            // plot projections
+            for(const datapoint of data) {
+                // calculate dot product of u vector and datapoint
+                const dotProduct = uVectorX * datapoint.x + uVectorY * datapoint.y;
+                const projectedX = dotProduct * uVectorX;
+                const projectedY = dotProduct * uVectorY;
+
+                svg_full.append("line")
+                    .attr("class", "projection")
+                    .attr("x1", x2CX(datapoint.x))
+                    .attr("y1", y2CY(datapoint.y))
+                    .attr("x2", x2CX(projectedX))
+                    .attr("y2", y2CY(projectedY))
+                    .attr("stroke", "red")
+                    .attr("stroke-width", 2)
+                    .attr("opacity", 0.25);
+
+                svg_full.append("circle")
+                    .attr("class", "projection")
+                    .attr("cx", x2CX(projectedX))
+                    .attr("cy", y2CY(projectedY))
+                    .attr("r", 3)
+                    .attr("fill", "red");
+            }
+        
+
+            // svg listen for mouse move events
+            // svg_full.on("mousemove", function (event) {
+            //     mouseCX = event.offsetX;
+            //     mouseCY = event.offsetY;
+            // });
+
+            // inverses of the 2CX functions
+            function x2CX_INV(mouseX: number) {
+                const real_width = width - 2 * inner_border;
+                const percentage = (mouseX - inner_border) / real_width;
+                return percentage * (max_x - min_x) + min_x;
+            }
+
+            function y2CY_INV(mouseY: number) {
+                const real_height = height - 2 * inner_border;
+                const percentage = (mouseY - inner_border) / real_height;
+                return percentage * (max_y - min_y) + min_y;
+            }
+
+            svg_full.on("mousemove", function (event) {
+                const vectorXUnormalized = x2CX_INV(event.offsetX);
+                const vectorYUnormalized = y2CY_INV(event.offsetY);
+                const vectorUnormalizedLength = Math.sqrt(vectorXUnormalized ** 2 + vectorYUnormalized ** 2);
+
+                uVectorX = vectorXUnormalized / vectorUnormalizedLength;
+                uVectorY = vectorYUnormalized / vectorUnormalizedLength;
+                console.log(uVectorX, uVectorY, Math.sqrt(uVectorX ** 2 + uVectorY ** 2));
+
+                // update u vector display
+                svg_full.select("#uVector")
+                    .attr("x1", x2CX(uVectorX * -10000))
+                    .attr("y1", y2CY(uVectorY * -10000))
+                    .attr("x2", x2CX(uVectorX * 10000))
+                    .attr("y2", y2CY(uVectorY * 10000))
+
+                d3.selectAll(".projection").remove();
+
+                // plot projections
+                for(const datapoint of data) {
+                    // calculate dot product of u vector and datapoint
+                    const dotProduct = uVectorX * datapoint.x + uVectorY * datapoint.y;
+                    const projectedX = dotProduct * uVectorX;
+                    const projectedY = dotProduct * uVectorY;
+
+                    svg_full.append("line")
+                        .attr("class", "projection")
+                        .attr("x1", x2CX(datapoint.x))
+                        .attr("y1", y2CY(datapoint.y))
+                        .attr("x2", x2CX(projectedX))
+                        .attr("y2", y2CY(projectedY))
+                        .attr("stroke", "red")
+                        .attr("stroke-width", 2)
+                        .attr("opacity", 0.25);
+
+                    svg_full.append("circle")
+                        .attr("class", "projection")
+                        .attr("cx", x2CX(projectedX))
+                        .attr("cy", y2CY(projectedY))
+                        .attr("r", 3)
+                        .attr("fill", "red");
+                }
+            })
         }
     });
+
+    
+
+    // using svelte reactivity to plot the mouse selected direction
+    // $: {
+    //     if(data && mouseCX && mouseCY) {
+    //         console.log(mouseCX, mouseCY);
+    //     }
+    // }
 </script>
 
 
 <div>
-<h1>Interactive Visualization Prototype</h1>
+<h1>PCA - Interactive Visualization Prototype</h1>
+<p>move mouse over chart to see projected data</p>
 <!-- black border to visualization 1 -->
 <svg id="full" style="border: 1px solid black; border-radius: 5px;"></svg>
 <svg id="projected"></svg>
