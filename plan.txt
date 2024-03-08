@@ -17,7 +17,7 @@ figure out which images belong to which artist
 
 hutao teaches you about principal component analysis
 
-lets say that we have a dataset of images which we want to analyze
+lets say that we have some images which we want to analyze
 we could go through each image individually to figure out what makes them different
 if there are only a couple images, it may not be that hard to do this (show a couple of the images)
 however, if there are hundreds, or even thousands, (zoom out to draw all of the images), it can become quite time consuming and tedious. 
@@ -35,6 +35,32 @@ In a sense, you can think of the image as being a "lossy" projection of reality.
 "Information loss" has occured. 
 
 To get a better sense of "information loss" and how it relates to dimensionality reduction, here's an interactive example. 
+we're projecting a set of datapoints onto a line and measuring the "information loss". in this case, it corresponds to the distance between the original points and their projections.
+
+what do you think is the best line to project these points onto?
+in this case, it's this line right here (show with a specific u vector set)
+when you look at the resulting projection, you can see that the points are still pretty close to their original positions.
+the "information loss" is minimal.
+
+compared to projecting the points onto this line (show with a specific u vector set), there is significantly less information loss. 
+
+also looking at the 1d projections, you can see that the points on the good projection are far more "spread out" than the points on the bad projection.
+
+minimization of information loss happens to correspond to maximization of variance. 
+
+to calculate the variance in a given direction, we can project the data onto that direction and measure the spread of the resulting points.
+
+we can also more formally think of this idea as: (show u.T @ X.T @ X @ u)
+if you remember from linear algebra, X.T @ X is a symmetric matrix, which means through the spectral theorem, the maximum eigenvalue eigenvectors of the symmetric matrix will end up maximizing the variance. 
+
+here are the top 10 eigenvectors: 
+show images. 
+it should be interesting to note that you can make out faces. 
+
+despite how horrifying they may be. feel free to take a closer look at and explore these eigenvectors. 
+
+projecting the datapoints onto the top 2 eigenvectors and constructing a new dataset, we can now visualize it in 2d. 
+
 
 
 

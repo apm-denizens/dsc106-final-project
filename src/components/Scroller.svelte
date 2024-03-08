@@ -1,8 +1,8 @@
 <script lang="ts">
 	// @ts-ignore
 	import Scroller from "@sveltejs/svelte-scroller";
-	import LoremIpsum from './LoremIpsum.svelte';
 	import DraggableLabel from './DraggableLabel.svelte';
+	import PcaVis from './PcaVis.svelte';
 	
 	let count: number;
 	let index: number;
@@ -14,7 +14,6 @@
 </script>
 
 <div class='demo'>
-	<LoremIpsum/> 
 
 	<Scroller
 		{top}
@@ -36,17 +35,18 @@
 			<progress value={progress || 0}></progress>
 		</div>
 
-		<div slot="foreground" style="padding: 0 0 0 50%;">
-			<section>section 1</section>
+		<div slot="foreground" style="">
+			<section>
+				<PcaVis />
+			</section>
 			<section>section 2</section>
 			<section>section 3</section>
 			<section>section 4</section>
 			<section>section 5</section>
+			<section>section 6</section>
 		</div>
 	</Scroller>
 
-	<LoremIpsum/>
-	
 	<DraggableLabel bind:value={top} label="top"/>
 	<DraggableLabel bind:value={threshold} label="threshold"/>
 	<DraggableLabel bind:value={bottom} label="bottom"/>
@@ -80,7 +80,7 @@
 	
 	section {
 		height: 80vh;
-		background-color: rgba(0,0,0,0.5);
+		background-color: rgba(0,0,0,0.1);
 		color: white;
 		padding: 1em;
 		margin: 0 0 2em 0;

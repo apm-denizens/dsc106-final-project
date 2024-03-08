@@ -1,8 +1,10 @@
 <script lang="ts">
+    export let sceneIndex: number;
+
     import { onMount } from "svelte";
     import * as d3 from "d3";
 
-    let index = 0;
+    let animeGirlIndex = 0;
 
     onMount(async () => {
         const text = await d3.text("./anime_girls_400x4096_alt_2.csv")
@@ -14,9 +16,21 @@
         displayIndexImage();
         
         function displayIndexImage() {
-            const animeGirl = animeGirls[index];
+            const animeGirl = animeGirls[animeGirlIndex];
             ctx.drawImage(generateImage(animeGirl), 0, 0, canvas.width, canvas.height);
-            document.getElementById("index-text")!.textContent = `${index+1} / ${animeGirls.length}`;
+            document.getElementById("index-text")!.textContent = `${animeGirlIndex+1} / ${animeGirls.length}`;
+        }
+
+        const canvas2 = document.getElementById("anime-girls-display-4") as HTMLCanvasElement;
+        const ctx2 = canvas2.getContext('2d') as CanvasRenderingContext2D;
+        for(let i = 0; i < 4; i++) {ctx2.drawImage(generateImage(animeGirls[i]), i * 32, 0, 32, 32)}
+
+        const canvas3 = document.getElementById("anime-girls-display-200") as HTMLCanvasElement;
+        const ctx3 = canvas3.getContext('2d') as CanvasRenderingContext2D;
+        for(let i = 0; i < 20; i++) {
+            for(let j = 0; j < 20; j++) {
+                ctx3.drawImage(generateImage(animeGirls[i * 20 + j]), j * 32, i * 32, 32, 32)
+            }
         }
 
         function generateImage(animeGirl: number[]) {
@@ -35,12 +49,12 @@
         }
 
         function prevAnimeGirl() {
-            index = (index - 1 + animeGirls.length) % animeGirls.length;
+            animeGirlIndex = (animeGirlIndex - 1 + animeGirls.length) % animeGirls.length;
             displayIndexImage();
         }
 
         function nextAnimeGirl() {
-            index = (index + 1) % animeGirls.length;
+            animeGirlIndex = (animeGirlIndex + 1) % animeGirls.length;
             displayIndexImage();
         }
 
@@ -50,12 +64,33 @@
             const rect = canvas.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            if(x < 250) {prevAnimeGirl()} else {nextAnimeGirl()}
+            if(x < canvas.width / 2) {prevAnimeGirl()} else {nextAnimeGirl()}
         });
         document.getElementById("index-input")!.addEventListener("change", (e) => {
             const newIndex = Number((e.target as HTMLInputElement).value) - 1;
             if(newIndex >= 0 && newIndex < animeGirls.length) {
-                index = newIndex;
+                animeGirlIndex = newIndex;
+                displayIndexImage();
+            }
+        });
+        document.getElementById("anime-girls-display-4")!.addEventListener("mousemove", (e) => {
+            const rect = canvas2.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const i = Math.floor(x / 32);
+            if(i >= 0 && i < 4) {
+                animeGirlIndex = i;
+                displayIndexImage();
+            }
+        });
+        document.getElementById("anime-girls-display-200")!.addEventListener("mousemove", (e) => {
+            const rect = canvas3.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const i = Math.floor(y / 32);
+            const j = Math.floor(x / 32);
+            if(i >= 0 && i < 20 && j >= 0 && j < 20) {
+                animeGirlIndex = i * 20 + j;
                 displayIndexImage();
             }
         });
@@ -63,18 +98,30 @@
 
 
 </script>
-<div style="display: block;">
-    <div>
-        <span id="index-text"></span>
-        <input id="index-input" placeholder="press enter to confirm"/>
-        <button id="anime-girl-display-prev">prev</button>
-        <button id="anime-girl-display-next">next</button>
+<div style:display={sceneIndex === 0 ? 'block' : 'none'}>
+    <div style="display: flex; flex-direction: row;">
+        <div>
+            <div>
+                <span id="index-text"></span>
+                <input id="index-input" placeholder="press enter to confirm"/>
+            </div>
+            <div>
+                <button id="anime-girl-display-prev">prev</button>
+                <button id="anime-girl-display-next">next</button>
+            </div>
+            <canvas id="anime-girl-display" width="250px" height="250px" style="display: block; border: 1px solid black; border-radius: 5px;"></canvas>
+            <div>
+                <span style="font-size: 8px; display: block;">use buttons or click on right/left halves of the canvas to navigate</span>
+                <span style="font-size: 8px; display: block;">images are loaded in through a csv for matmul convenience</span>
+            </div>
+        </div>
+        <div>
+            <canvas id="anime-girls-display-4" width="128px" height="32px" style="border: 1px solid black; border-radius: 5px;"></canvas>
+        </div>
+        <div>
+            <canvas id="anime-girls-display-200" width="640" height="640px" style="border: 1px solid black; border-radius: 5px;"></canvas>
+        </div>
     </div>
-    <canvas id="anime-girl-display" width="500px" height="500px" style="border: 1px solid black; border-radius: 5px;"></canvas>
     <canvas id="offscreen-canvas" width="64px" height="64px" style="display: none;"></canvas>
-    <div>
-        <span style="font-size: 12px; display: block;">use buttons or click on right/left halves of the canvas to navigate</span>
-        <span style="font-size: 12px; display: block;">images are loaded in through a csv for matmul convenience</span>
-    </div>
 </div>
 

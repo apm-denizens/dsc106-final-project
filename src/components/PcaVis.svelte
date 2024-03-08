@@ -1,4 +1,6 @@
 <script lang="ts">
+    export let sceneIndex: number;
+
     import { onMount } from "svelte";
     import * as d3 from "d3";
     type Features = "x" | "y"
@@ -9,6 +11,8 @@
     let mouseCY = 0;
     let uVectorX = 1 / Math.sqrt(2);
     let uVectorY = 1 / Math.sqrt(2);
+
+    // console.log(scrollIndex)
 
     onMount(async () => {
         let svg_full = d3.select("#full");
@@ -218,7 +222,7 @@
 
 </script>
 
-<div>
+<div style:display={sceneIndex === 1 ? 'block' : 'none'}>
     <svg id="full" style="border: 1px solid black; border-radius: 5px; display: block; margin-bottom: 5px;"></svg>
     <svg id="projected" style="border: 1px solid black; border-radius: 5px; display: block;"></svg>
 </div>
