@@ -220,7 +220,5 @@
 
 <div>
     <svg id="full" style="border: 1px solid black; border-radius: 5px; display: block; margin-bottom: 5px;"></svg>
-    <svg id="projected" style="border: 1px solid black; border-radius: 5px; display: block;">
-        asdf
-    </svg>
+    <svg id="projected" style="border: 1px solid black; border-radius: 5px; display: block;"></svg>
 </div>
