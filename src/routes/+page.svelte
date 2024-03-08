@@ -1,4 +1,5 @@
 <script lang="ts">
+    import AnimeGirlDisplay from "../components/AnimeGirlDisplay.svelte";
     import PcaVis from "../components/PcaVis.svelte"
 </script>
 
@@ -6,6 +7,7 @@
 <div>
 <h1>PCA - Interactive Visualization Prototype</h1>
 <p>move mouse over chart to see projected data. prototype writeup below. </p>
+<AnimeGirlDisplay />
 <PcaVis />
 <p>
     Our project focuses on explaining principal component analysis. A visualization involving a 2d case with data points projected onto the mouse location dictated "unit vector". Each of the smaller red lines that stretch from each data point to the main line are the resulting projections. Those lines correspond to reconstruction error, and the user can move the mouse around to build an intuition for what case minimizes said error. 
