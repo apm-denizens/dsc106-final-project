@@ -6,3 +6,40 @@ provide motivation and intuition on how dimensionality reduction would be useful
 scrolly teller probably
 animation to fade things in. 
 showing the idealized directions of the scroll. 
+
+another option:
+you want to perform an analysis on the images
+
+
+figure out which images belong to which artist
+
+1) 
+
+hutao teaches you about principal component analysis
+
+lets say that we have a dataset of images which we want to analyze
+we could go through each image individually to figure out what makes them different
+if there are only a couple images, it may not be that hard to do this (show a couple of the images)
+however, if there are hundreds, or even thousands, (zoom out to draw all of the images), it can become quite time consuming and tedious. 
+
+one way which you can quickly gain insight into your dataset is through reducing its dimensionality and make it visualizable. 
+that way you can take a glance at the final visualization and get a feel for high-level patterns. 
+
+if you're reducing the dimensionality of your dataset, it's inevitable that there's going to be information loss. 
+if the term "information loss" is unfamiliar, here's an example that might help. 
+lets say that my good friend luigi has been arrested for tax evaision and they're currently being interrogated. behind them is a picture of a clock. 
+staring at that image of a clock, can you figure out what time it is? 
+It's clear that its' 10 o clock. But is it 10:00 AM or 10:00 PM?
+Because this image can "map" to multiple moments in time, it's impossible to know for sure.
+In a sense, you can think of the image as being a "lossy" projection of reality.
+"Information loss" has occured. 
+
+To get a better sense of "information loss" and how it relates to dimensionality reduction, here's an interactive example. 
+
+
+
+could do some interesting visualizations here: 
+represent an image as a 4096 dimensional vector
+stack these vectors into an array
+
+
