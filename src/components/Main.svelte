@@ -5,7 +5,7 @@
     import HuTao from "./HuTao.svelte";
 
     let sceneIndex = 0;
-    let totalScenes = 3;
+    let totalScenes = 0;
 
     onMount(async () => {
         function prevScene() {sceneIndex = (sceneIndex - 1 + totalScenes) % totalScenes}
@@ -31,8 +31,8 @@
         </nav>
         <article>
             {sceneIndex}
-            <PcaVis {sceneIndex} />
             <AnimeGirlDisplay {sceneIndex} />
+            <!-- <PcaVis {sceneIndex} /> -->
         </article>
         <nav id="right-sidebar">
             <button>▶</button>
@@ -40,7 +40,7 @@
     </div>
 </div>
 
-<HuTao {sceneIndex} />
+<HuTao {sceneIndex} bind:totalScenes={totalScenes} />
 
 <style>
 

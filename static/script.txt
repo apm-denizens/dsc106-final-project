@@ -1,6 +1,30 @@
-HuTao: 
-Hello Luigi, I am HuTao, the 77th Director of the Wangsheng Funeral Parlor. I have been sent by the Adventurers' Guild to teach you about principal component analysis. 
+Luigi-nervous: W-Where am I?
 
-Luigi:
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA. 
-PLEASE SPARE ME. 
+HuTao-ghost: Hello Luigi, I am HuTao, the 77th Director of the Wangsheng Funeral Parlor. I have been sent by the Adventurers' Guild to teach you about principal component analysis. 
+
+Luigi-scared: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!
+Luigi-scared: PLEASE SPARE ME. 
+
+HuTao-unamused: ...
+
+HuTao-unamused: I am not here to harm you. I am here to teach you. 
+
+Luigi-scared: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!
+
+HuTao-unamused: Anyhow... let's get started...
+
+HuTao-ghost: Lets say that we have some images of faces which we want to analyze. 
+HuTao-ghost: We could start off by going through each and every image to figure out similarities, differences, or patterns. 
+HuTao-ghost: If there are only a few images, it should be pretty straightforward.
+HuTao-ghost: Hover over the images to get a closer look. From the few images you see here, there should be no problem in seeing that there are clear artistic styles. 
+HuTao-ghost: But... what if we have hundreds...
+HuTao-ghost: But... what if we have hundreds... thousands...
+HuTao-ghost: But... what if we have hundreds... thousands... or even TENS OF THOUSANDS of images?
+
+Luigi-scared: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!
+
+HuTao-ghost: Yes, yes, truly a nightmare. I'll give you a moment to immerse yourself in such horror.
+HuTao-ghost:
+
+HuTao-ghost: One way which can help you quickly gain insight into a dataset is through reducing its dimensionality and making it visualizable. 
+

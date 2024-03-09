@@ -4,6 +4,9 @@
     import { onMount } from "svelte";
     import * as d3 from "d3";
 
+    let sceneLowerBound = 8;
+    let sceneUpperBound = 20;
+
     let animeGirlIndex = 0;
 
     onMount(async () => {
@@ -98,7 +101,7 @@
 
 
 </script>
-<div style:display={sceneIndex === 0 ? 'block' : 'none'}>
+<div style:display={sceneIndex >= sceneLowerBound && sceneIndex < sceneUpperBound ? 'block' : 'none'}>
     <div style="display: flex; flex-direction: row;">
         <div>
             <div>
@@ -116,10 +119,10 @@
             </div>
         </div>
         <div>
-            <canvas id="anime-girls-display-4" width="128px" height="32px" style="border: 1px solid black; border-radius: 5px;"></canvas>
+            <canvas id="anime-girls-display-4" width="128px" height="32px" style="border: 1px solid black; border-radius: 5px;" style:display={sceneIndex >= 10 && sceneIndex < 12 ? "block" : "none"}></canvas>
         </div>
         <div>
-            <canvas id="anime-girls-display-200" width="640" height="640px" style="border: 1px solid black; border-radius: 5px;"></canvas>
+            <canvas id="anime-girls-display-200" width="640" height="640px" style="border: 1px solid black; border-radius: 5px;" style:display={sceneIndex >= 12 ? "block" : "none"}></canvas>
         </div>
     </div>
     <canvas id="offscreen-canvas" width="64px" height="64px" style="display: none;"></canvas>
