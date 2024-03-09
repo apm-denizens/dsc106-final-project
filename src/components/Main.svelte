@@ -9,7 +9,7 @@
     import CuteEigenface from "./CuteEigenface.svelte";
     import EigenvectorsDisplay from "./EigenvectorsDisplay.svelte";
 
-    let sceneIndex = 49;
+    let sceneIndex = 50;
     let totalScenes = 0;
 
     onMount(async () => {

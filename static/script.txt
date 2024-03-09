@@ -65,3 +65,4 @@ Luigi-scared: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 HuTao-ghost: Since the eigenvectors correspond roughly to faces, perhaps we can call them... eigenfaces. The term has a cute ring to it. 
 
 Hutao-ghost: Here are the top 30 eigenvectors/eigenfaces. 
+Hutao-ghost: 
