@@ -1,0 +1,35 @@
+hello luigi! i'm here to teach you about principal component analysis. 
+
+Motivation:
+- why do you think your visualization is better than other explanations?
+    - we start off with the information loss perspective which i think is more approachable than the variance perspective
+    - we build intuition about information loss through a simple interactive 2d case
+    - when the eigenvectors are calculated, the viewer is allowed to project upon any combination of the top 30 eigenvectors, not just the top 2, which is something i haven't seen in other explanations
+
+Explanation of the visualization
+- design choices
+    - image displayer/viewer
+        - gradually revealing the scale of the dataset
+        - the surprise reveal at the end where the entire background is plastered with the dataset
+            - was really annoying to figure out how to get mouseover events to trigger
+    - scene manager
+        - conveying the ideas through character dialogue rather than text
+        - more interesting than just reading a wall of text
+        - allows a gradual reveal of information when coordinated with other elements
+    - information loss / variance calculator
+        - keeping the encodings simple. just dot and line encodings. 
+        - using color to differentiate between original and projections
+        - using opacity of projection lines to not overclutter the visualization
+        - a separate window at the bottom to projections + variance
+        - has annotations that display the current information loss and variance. 
+    - eigenvector selector
+        - eigenvectors are displayed similarly in the image viewer
+        - using a scatterplot to show where the projections are in 2d space. 
+
+Takeaway:
+- PCA can find interesting structure in high dimensional data that may not be immediately obvious.
+- If you know some linear algebra, PCA is a very straightforward application of it, and hopefully shouldn't feel intimidating at all. 
+- This visualization attempts to build up PCA from first principles, and through the interactive visualizations where viewers can first experiment and come to their own conclusions, and then see the math behind it, I hope that the viewer can build a strong intuition about PCA.
+
+
+The video ends with an interesting takeaway and explains why your visualization demonstrates this takeaway effectively. What is the one thing that everyone should learn from your visualization? And why does your visualization succeed at explaining it?	

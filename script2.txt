@@ -1,0 +1,112 @@
+hello luigi! i'm here to teach you about principal component analysis.
+はじめましてルイジさん！私は主成分分析について教えるためにここにいます。
+
+motivations:
+this project takes PCA through the information loss approach, which i think is more intuitive than the variance approach.
+このプロジェクトは、分散アプローチよりも直感的だと思われる情報損失アプローチを通じて PCA を行います。
+
+for this visualization, you can choose a direction and see how the data is projected in it's original space, and the new feature space. 
+この視覚化では、方向を選択して、データが元の空間と新しい特徴空間にどのように射影されるかを見ることができます。
+
+blue points are the original data, red points are the projected data, and the opaque red lines denote the projection path.
+青い点は元のデータ、赤い点は射影されたデータで、不透明な赤い線は射影経路を示します。
+
+the problem being used to motivate this discussion is the analysis of an image dataset of faces. 
+この議論を促進するために使用される問題は、顔の画像データセットの分析です。
+
+you could start off by manually going through the images, but if the dataset is massive, it's not feasible. 
+最初は画像を手動で見てみることもできますが、データセットが大規模な場合は実現不可能です。
+
+to give a sense of scale, the dataset is gradually revealed, with a final reveal that aims to overwhelm the viewer. 
+スケール感を与えるために、データセットは徐々に明らかにされ、最終的には視聴者を圧倒することを目指しています。
+
+this was the hardest feature to implement, as cascading the mouse events for interactivity was very painful. 
+これは実装するのが最も難しい機能であり、相互作用のためのマウスイベントを連鎖させることは非常に痛かったです。
+
+in regards to the eigenvectors, this is my favorite one.
+固有ベクトルに関しては、これが私のお気に入りです。
+
+the eigenvector selector is probably this project's most interesting feature. 
+固有ベクトルセレクタは、おそらくこのプロジェクトで最も興味深い機能です。
+
+the user can select any combination of the top thirty eigenvectors, and the projection scatterplots will update accordingly.
+ユーザーは上位 30 つの固有ベクトルの任意の組み合わせを選択し、射影散布図はそれに応じて更新されます。
+
+the user can hover over the new representation scatterplot, and the closest image will be pulled up for display, enabling comparison to the eigenvectors. 
+ユーザーは新しい表現の散布図の上にカーソルを置くことができ、最も近い画像が表示され、固有ベクトルとの比較が可能になります。
+
+a lot of PCA's only focus on the top two eigenvectors, but this project emphasizes that the discarded eigenvectors are also interesting. 
+多くの PCA は上位 2 つの固有ベクトルに焦点を当てていますが、このプロジェクトは、破棄された固有ベクトルも興味深いと強調しています。
+
+compared to other pca explanations, i think this project is unique in its combination of interactive features, contextualized around a specific problem, with an emphasis on intuition. 
+他の PCA の説明と比較して、このプロジェクトは、特定の問題を中心にしたインタラクティブな機能の組み合わせと、直感を重視した点でユニークだと思います。
+
+on top of a better understanding of PCA, a takeaway that you might find insightful is from the eigenvector selector, which emphasizes that reducing dimensionality through projecting on other eigenvectors can be useful. 
+PCA の理解を深めるだけでなく、固有ベクトルセレクタから得られる示唆に富んだものがあります。それは、他の固有ベクトルに射影することで次元を削減することが有用であることを強調しています。
+
+
+thank you for your time, have a nice day!
+お時間をいただきありがとうございます、良い一日を！
+
+
+The video ends with an interesting takeaway and explains why your visualization demonstrates this takeaway effectively. What is the one thing that everyone should learn from your visualization? And why does your visualization succeed at explaining it?	
+
+
+
+to do so, we use a simple interactive 2d case which helps build a visual intuition 
+そのために、視覚的直感を構築するのに役立つシンプルなインタラクティブな 2D ケースを使用します。
+
+it's only afterwards, that we formalize with variance and the subsequent linear algebra
+その後、分散とその後の線形代数を用いて形式化します。
+
+when we do eventually touch on eigenvectors, we consider not just the top two eigenvectors, but instead the top thirty. 
+最終的に固有ベクトルに触れるとき、私たちは上位 2 つの固有ベクトルだけでなく、上位 30 つを考慮します。
+
+the viewer can choose any combination to explore, and the projection scatterplots will update accordingly.
+視聴者は任意の組み合わせを選択して探索することができ、射影散布図はそれに応じて更新されます。
+
+while there are other projects which likely have some of these aspects, i believe this project is interesting in its combination.
+他のプロジェクトにはこれらの側面のいくつかがある可能性がありますが、このプロジェクトはその組み合わせで興味深いと思います。
+
+explanation of the visualizations:
+
+the image displayer allows the viewer to explore the entire dataset.
+画像ディスプレイは、視聴者がデータセット全体を探索できるようにします。
+
+the dataset is gradually revealed, and the final stage where the entire screen is plastered with images, gives off a sense of scale that can overwhelm the viewer. 
+データセットは徐々に明らかにされ、画面全体が画像で覆われる最終段階では、視聴者を圧倒するスケール感を与えます。
+
+getting mouseevents to cascade properly made this scene very time consuming to code.
+マウスイベントを正しく連鎖させることは、このシーンをコーディングするのに非常に時間がかかりました。
+
+there are 50+ scenes, which makes hardcoding very painful. so scenes are specified through a textfile and loaded dynamically.
+50 シーン以上あるため、ハードコーディングは非常に痛いです。そのため、シーンはテキストファイルを介して指定され、動的に読み込まれます。
+
+having scenes to convey information is more interesting than just reading a wall of text with each visualization. 
+情報を伝えるためのシーンがある方が、各視覚化に壁のテキストを読むよりも興味深いです。
+
+there's a lot going on the projection loss calculator, so the encodings are kept simple. 
+射影損失計算機には多くのことがありますので、エンコーディングはシンプルに保たれています。
+
+blue circles for original points, red circles for projected points, and opaque red lines denote the projection path. 
+青い円は元の点、赤い円は射影された点、不透明な赤い線は射影経路を示します。
+
+the viewer specifies a direction through their mouse, projections are calculated, and the loss + variance is displayed. 
+視聴者はマウスを使って方向を指定し、射影が計算され、損失と分散が表示されます。
+
+for the eigenvector selector, the eigenvectors are represented through images, and the user can click to select the ones they want. 
+固有ベクトルセレクタでは、固有ベクトルは画像で表され、ユーザーはクリックして選択することができます。
+
+the selected eigenvectors are then used to calculate the projections and the new feature space is displayed. 
+選択された固有ベクトルは、その後、射影を計算するために使用され、新しい特徴空間が表示されます。
+
+the user can hover over the new representation scatterplot, and the closest image will be pulled up for display. 
+ユーザーは新しい表現の散布図の上にカーソルを置くことができ、最も近い画像が表示されます。
+
+TAKEAWAYS
+
+In general, PCA is a convenient method to visualize high-dimensional data and this project approaches the concepts through a first-principled manner, trying to build intuitions. 
+一般的に、PCA は高次元データを視覚化するための便利な方法であり、このプロジェクトは概念を最初の原理的な方法でアプローチし、直感を構築しようとしています。
+
+If you know some linear algebra, PCA is a straightforward application of it, and hopefully shouldn't feel intimidating at all. 
+線形代数について少し知っているなら、PCA はそれの直感的な適用であり、全く威圧的に感じることはないはずです。
