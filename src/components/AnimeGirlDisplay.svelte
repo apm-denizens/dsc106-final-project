@@ -5,7 +5,7 @@
     import * as d3 from "d3";
 
     let sceneLowerBound = 8;
-    let sceneUpperBound = 20;
+    let sceneUpperBound = 28;
 
     let animeGirlIndex = 0;
 

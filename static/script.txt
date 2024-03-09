@@ -27,5 +27,19 @@ Luigi-scared: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 HuTao-ghost: Yes, yes, truly a nightmare. I'll give you a moment to immerse yourself in such horror.
 HuTao-ghost:
 
-HuTao-ghost: One way which can help you quickly gain insight into a dataset is through reducing its dimensionality and making it visualizable. 
+HuTao-ghost: As you can probably tell, this task would be extremely time-consuming and tedious.
+HuTao-ghost: However, what if I told you that there is a way to quickly gain insight into the dataset without having to go through each and every image?
+HuTao-ghost: A way to go about this is through reducing the dimensionality of the images to 2 or 3 dimensions.
+HuTao-ghost: This makes it so that you can can create a plot of all of the image representations, and quickly glean insights. 
 
+HuTao-ghost: However, as you might imagine, there are trade-offs. 
+HuTao-ghost: Our images are 64x64 grayscale, which means that there are 4096 values are associated with each image.
+HuTao-ghost: To put it more formally, our images are 4096 dimensional vectors. 
+HuTao-ghost: If we want a 2 dimensional representation, that means we'll be losing 4094 dimensions of image information. 
+HuTao-ghost: Because of this, it's imperative that we find a representation that *minimizes the information lost*.
+
+HuTao-ghost: To build some intuition for this idea, let's consider a simple example of finding good 1-dimensional representations of a dataset of 2-dimensional vectors.
+HuTao-ghost: All of the blue datapoints are projected onto the red line, creating a new representation, and the opaque red lines stretching from the blue points to the red line indicate the distance between the original datapoint and the new representation. 
+HuTao-ghost: Those distances can be thought of as the *information lost* by the projection. The longer those lines, the "farther off" the projection is, and the greater the information loss. 
+HuTao-ghost: Move your mouse over the plot to choose a new projection direction. Try to find the direction that incurs minimal information loss. Also pay attention to the variance of the projected datapoints in the 1D line plot below. I'll give you a moment to play around with this interactive visualization. 
+HuTao-ghost: 

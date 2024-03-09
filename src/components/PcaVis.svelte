@@ -115,11 +115,17 @@
 
 
             // plot projections
+            let totalInformationLoss = 0;
+            const projections: number[] = []
             for(const datapoint of data) {
                 // calculate dot product of u vector and datapoint
                 const dotProduct = uVectorX * datapoint.x + uVectorY * datapoint.y;
+                projections.push(dotProduct);
+
                 const projectedX = dotProduct * uVectorX;
                 const projectedY = dotProduct * uVectorY;
+                const informationLoss = Math.sqrt((datapoint.x - projectedX) ** 2 + (datapoint.y - projectedY) ** 2);
+                totalInformationLoss += informationLoss;
 
                 svg_full.append("line")
                     .attr("class", "projection")
@@ -145,12 +151,24 @@
                     .attr("r", 3)
                     .attr("fill", "red");
             }
+
+            d3.selectAll(".svglabel").remove()
+            svg_full.append("text")
+                .attr("class", "svglabel")
+                .attr("x", 15)
+                .attr("y", 30)
+                .text(`Total Information Loss: ${totalInformationLoss.toFixed(2)}`);
+            svg_proj.append("text")
+                .attr("class", "svglabel")
+                .attr("x", 15)
+                .attr("y", 30)
+                .text(`Projection Variance: ${d3.variance(projections)!.toFixed(2)}`);
         
 
             // svg listen for mouse move events
             // svg_full.on("mousemove", function (event) {
             //     mouseCX = event.offsetX;
-            //     mouseCY = event.offsetY;
+            //     mouseCY =event.offsetY;
             // });
 
             // inverses of the 2CX functions
@@ -185,11 +203,17 @@
                 d3.selectAll(".projection").remove();
 
                 // plot projections
+                let totalInformationLoss = 0;
+                const projections: number[] = []
                 for(const datapoint of data) {
                     // calculate dot product of u vector and datapoint
                     const dotProduct = uVectorX * datapoint.x + uVectorY * datapoint.y;
+                    projections.push(dotProduct);
+
                     const projectedX = dotProduct * uVectorX;
                     const projectedY = dotProduct * uVectorY;
+                    const informationLoss = Math.sqrt((datapoint.x - projectedX) ** 2 + (datapoint.y - projectedY) ** 2);
+                    totalInformationLoss += informationLoss;
 
                     svg_full.append("line")
                         .attr("class", "projection")
@@ -215,6 +239,18 @@
                         .attr("r", 3)
                         .attr("fill", "red");
                 }
+
+                d3.selectAll(".svglabel").remove()
+                svg_full.append("text")
+                    .attr("class", "svglabel")
+                    .attr("x", 15)
+                    .attr("y", 30)
+                    .text(`Total Information Loss: ${totalInformationLoss.toFixed(2)}`);
+                svg_proj.append("text")
+                    .attr("class", "svglabel")
+                    .attr("x", 15)
+                    .attr("y", 30)
+                    .text(`Projection Variance: ${d3.variance(projections)!.toFixed(2)}`);
             })
         }
     });
@@ -222,7 +258,7 @@
 
 </script>
 
-<div style:display={sceneIndex === 1 ? 'block' : 'none'}>
+<div style="pointer-events: auto;" style:display={sceneIndex >= 28 ? 'block' : 'none'}>
     <svg id="full" style="border: 1px solid black; border-radius: 5px; display: block; margin-bottom: 5px;"></svg>
     <svg id="projected" style="border: 1px solid black; border-radius: 5px; display: block;"></svg>
 </div>

@@ -5,7 +5,7 @@
     import HuTao from "./HuTao.svelte";
     import Controls from "./Controls.svelte";
 
-    let sceneIndex = 0;
+    let sceneIndex = 28;
     let totalScenes = 0;
 
     onMount(async () => {
@@ -33,7 +33,7 @@
         <article>
             <Controls {sceneIndex} />
             <AnimeGirlDisplay {sceneIndex} />
-            <!-- <PcaVis {sceneIndex} /> -->
+            <PcaVis {sceneIndex} />
         </article>
         <nav id="right-sidebar" style="pointer-events: auto; border: 1px solid black; border-radius: 5px;">
             <button>▶</button>

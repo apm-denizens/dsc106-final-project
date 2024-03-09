@@ -36,7 +36,7 @@
         }
 
         totalScenes = lines.length;
-        currentLine = lines[0]; // very hacky. i don't understand svelte lifecycle that well. this feels so bad. 
+        currentLine = lines[sceneIndex]; // very hacky. i don't understand svelte lifecycle that well. this feels so bad. 
     });
 </script>
 
