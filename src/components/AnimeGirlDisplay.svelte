@@ -10,7 +10,7 @@
     let animeGirlIndex = 0;
 
     onMount(async () => {
-        const text = await d3.text("./anime_girls_400x4096_alt_2.csv")
+        const text = await d3.text("./anime_girls_2000x4096.csv")
         const animeGirls = d3.csvParseRows(text, d3.autoType) as number[][];
 
         const canvas = document.getElementById('anime-girl-display') as HTMLCanvasElement;
@@ -28,11 +28,27 @@
         const ctx2 = canvas2.getContext('2d') as CanvasRenderingContext2D;
         for(let i = 0; i < 4; i++) {ctx2.drawImage(generateImage(animeGirls[i]), i * 32, 0, 32, 32)}
 
-        const canvas3 = document.getElementById("anime-girls-display-200") as HTMLCanvasElement;
+        const canvas3 = document.getElementById("anime-girls-display-400") as HTMLCanvasElement;
         const ctx3 = canvas3.getContext('2d') as CanvasRenderingContext2D;
         for(let i = 0; i < 20; i++) {
             for(let j = 0; j < 20; j++) {
                 ctx3.drawImage(generateImage(animeGirls[i * 20 + j]), j * 32, i * 32, 32, 32)
+            }
+        }
+
+        const canvas4 = document.getElementById("anime-girls-display-900") as HTMLCanvasElement;
+        const ctx4 = canvas4.getContext('2d') as CanvasRenderingContext2D;
+        for(let i = 0; i < 30; i++) {
+            for(let j = 0; j < 30; j++) {
+                ctx4.drawImage(generateImage(animeGirls[i * 30 + j]), j * 32, i * 32, 32, 32)
+            }
+        }
+
+        const canvas5 = document.getElementById("anime-girls-display-2000") as HTMLCanvasElement;
+        const ctx5 = canvas5.getContext('2d') as CanvasRenderingContext2D;
+        for(let i=0; i < 40; i++) {
+            for(let j=0; j < 50; j++) {
+                ctx5.drawImage(generateImage(animeGirls[i * 50 + j]), j * 32, i * 32, 32, 32)
             }
         }
 
@@ -86,7 +102,7 @@
                 displayIndexImage();
             }
         });
-        document.getElementById("anime-girls-display-200")!.addEventListener("mousemove", (e) => {
+        document.getElementById("anime-girls-display-400")!.addEventListener("mousemove", (e) => {
             const rect = canvas3.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -97,32 +113,64 @@
                 displayIndexImage();
             }
         });
+
+        document.getElementById("anime-girls-display-900")!.addEventListener("mousemove", (e) => {
+            const rect = canvas4.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const i = Math.floor(y / 32);
+            const j = Math.floor(x / 32);
+            if(i >= 0 && i < 30 && j >= 0 && j < 30) {
+                animeGirlIndex = i * 30 + j;
+                displayIndexImage();
+            }
+        });
+
+        document.getElementById("anime-girls-display-2000")!.addEventListener("mousemove", (e) => {
+            const rect = canvas5.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const i = Math.floor(y / 32);
+            const j = Math.floor(x / 32);
+            if(i >= 0 && i < 40 && j >= 0 && j < 50) {
+                animeGirlIndex = i * 50 + j;
+                displayIndexImage();
+            }
+        });
     });
 
 
 </script>
 <div style:display={sceneIndex >= sceneLowerBound && sceneIndex < sceneUpperBound ? 'block' : 'none'}>
     <div style="display: flex; flex-direction: row;">
-        <div>
-            <div>
-                <span id="index-text"></span>
-                <input id="index-input" placeholder="press enter to confirm"/>
-            </div>
-            <div>
-                <button id="anime-girl-display-prev">prev</button>
-                <button id="anime-girl-display-next">next</button>
-            </div>
-            <canvas id="anime-girl-display" width="250px" height="250px" style="display: block; border: 1px solid black; border-radius: 5px;"></canvas>
-            <div>
-                <span style="font-size: 8px; display: block;">use buttons or click on right/left halves of the canvas to navigate</span>
-                <span style="font-size: 8px; display: block;">images are loaded in through a csv for matmul convenience</span>
+        <div style="margin-right: 5px; pointer-events: auto;">
+            <div  style="border: 1px solid black; border-radius: 5px; padding: 5px; background-color: white;">
+                <div>
+                    <span id="index-text"></span>
+                    <input id="index-input" placeholder="press enter to confirm"/>
+                </div>
+                <div>
+                    <button id="anime-girl-display-prev">prev</button>
+                    <button id="anime-girl-display-next">next</button>
+                </div>
+                <canvas id="anime-girl-display" width="250px" height="250px" style="display: block; border: 1px solid black; border-radius: 5px;"></canvas>
+                <div>
+                    <span style="font-size: 8px; display: block;">use buttons or click on right/left halves of the canvas to navigate</span>
+                    <span style="font-size: 8px; display: block;">images are loaded in through a csv for matmul convenience</span>
+                </div>
             </div>
         </div>
         <div>
-            <canvas id="anime-girls-display-4" width="128px" height="32px" style="border: 1px solid black; border-radius: 5px;" style:display={sceneIndex >= 10 && sceneIndex < 12 ? "block" : "none"}></canvas>
+            <canvas id="anime-girls-display-4" width="128px" height="32px" style="border: 1px solid black; border-radius: 5px; pointer-events: auto;" style:display={sceneIndex >= 10 && sceneIndex < 13 ? "block" : "none"}></canvas>
         </div>
         <div>
-            <canvas id="anime-girls-display-200" width="640" height="640px" style="border: 1px solid black; border-radius: 5px;" style:display={sceneIndex >= 12 ? "block" : "none"}></canvas>
+            <canvas id="anime-girls-display-400" width="640px" height="640px" style="border: 1px solid black; border-radius: 5px; pointer-events: auto;" style:display={sceneIndex >= 13 && sceneIndex < 14 ? "block" : "none"}></canvas>
+        </div>
+        <div>
+            <canvas id="anime-girls-display-900" width="960px" height="960px" style="border: 1px solid black; border-radius: 5px; pointer-events: auto;" style:display={sceneIndex >= 14 && sceneIndex < 15 ? "block" : "none"}></canvas>
+        </div>
+        <div>
+            <canvas id="anime-girls-display-2000" width="1600px" height="1280px" style="border: 1px solid black; border-radius: 5px; position: absolute; top: 0; left: 0; z-index: -1; pointer-events: auto;" style:display={sceneIndex >= 15 ? "block" : "none"}></canvas>
         </div>
     </div>
     <canvas id="offscreen-canvas" width="64px" height="64px" style="display: none;"></canvas>

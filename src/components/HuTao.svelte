@@ -40,9 +40,9 @@
     });
 </script>
 
-<div style="position: fixed; bottom: 0; width: 100%; ">
+{#if currentLine}
+<div style="position: fixed; bottom: 0; width: 100%;" style:display={currentLine.text ? "" : "none"}>
     <div style="display: flex;">
-        {#if currentLine}
             <img
                 src={currentLine.portraitSrc}
                 alt={currentLine.character}
@@ -60,6 +60,6 @@
                     {currentLine.text}
                 </div>
             {/if}
-        {/if}
     </div>
 </div>
+{/if}

@@ -16,10 +16,11 @@ HuTao-unamused: Anyhow... let's get started...
 HuTao-ghost: Lets say that we have some images of faces which we want to analyze. 
 HuTao-ghost: We could start off by going through each and every image to figure out similarities, differences, or patterns. 
 HuTao-ghost: If there are only a few images, it should be pretty straightforward.
-HuTao-ghost: Hover over the images to get a closer look. From the few images you see here, there should be no problem in seeing that there are clear artistic styles. 
+HuTao-ghost: Hover over the images to get a closer look. From the few images you see here, there should be no problem in quickly seeing that there are clear artistic styles. 
+HuTao-ghost: But...
 HuTao-ghost: But... what if we have hundreds...
 HuTao-ghost: But... what if we have hundreds... thousands...
-HuTao-ghost: But... what if we have hundreds... thousands... or even TENS OF THOUSANDS of images?
+HuTao-spook: But... what if we have hundreds... thousands... or even TENS OF THOUSANDS of images?
 
 Luigi-scared: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!
 

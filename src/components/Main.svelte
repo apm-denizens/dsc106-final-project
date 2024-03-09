@@ -23,24 +23,24 @@
 
 <div class="container" style="display: flex; flex-direction: column; height: 100vh; width: 100%; ">
     <header style="text-align: center; background-color: gray;">
-        <h1>HuTao Teaches Luigi About Principal Component Analysis</h1>
+        <h1>HuTao Teaches Luigi Principal Component Analysis</h1>
     </header>
     <div class="main-content" style="display: flex; flex: 1;">
-        <nav id="left-sidebar">
+        <nav id="left-sidebar" style="pointer-events: auto;">
             <button>◀</button>
         </nav>
         <article>
-            {sceneIndex}
             <AnimeGirlDisplay {sceneIndex} />
             <!-- <PcaVis {sceneIndex} /> -->
         </article>
-        <nav id="right-sidebar">
+        <nav id="right-sidebar" style="pointer-events: auto;">
             <button>▶</button>
         </nav>
     </div>
 </div>
 
 <HuTao {sceneIndex} bind:totalScenes={totalScenes} />
+<div style="position: absolute; bottom: 0; right: 0; z-index: 1;">{sceneIndex}/{totalScenes-1}</div>
 
 <style>
 
