@@ -6,8 +6,10 @@
     import Controls from "./Controls.svelte";
     import PcaVisBest from "./PcaVisBest.svelte";
     import LinAlg from "./LinAlg.svelte";
+    import CuteEigenface from "./CuteEigenface.svelte";
+    import EigenvectorsDisplay from "./EigenvectorsDisplay.svelte";
 
-    let sceneIndex = 42;
+    let sceneIndex = 49;
     let totalScenes = 0;
 
     onMount(async () => {
@@ -38,6 +40,8 @@
             <PcaVis {sceneIndex} />
             <PcaVisBest {sceneIndex} />
             <LinAlg {sceneIndex} />
+            <CuteEigenface {sceneIndex} />
+            <EigenvectorsDisplay {sceneIndex} />
         </article>
         <nav id="right-sidebar" style="pointer-events: auto; border: 1px solid black; border-radius: 5px;">
             <button>▶</button>

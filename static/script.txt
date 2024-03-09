@@ -60,5 +60,8 @@ HuTao-ghost: Any matrix multiplied by it's transpose is a symmetric matrix, mean
 HuTao-ghost: If you recall the spectral theorem from linear algebra, you'll remember that for any symmetric matrix S, the expression u.T @ S @ u, is maximized by the top eigenvector and minimized by the bottom eigenvector.
 HuTao-ghost: Going back to the images, we can calculate the covariance matrix, and find the top eigenvectors, which will maximize that expression, which is identical to the variance. 
 
-HuTao-ghost: These are the top 10 eigenvectors. 
+HuTao-ghost: Out of all the eigenvectors, this one is my favorite. 
 Luigi-scared: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!
+HuTao-ghost: Since the eigenvectors correspond roughly to faces, perhaps we can call them... eigenfaces. The term has a cute ring to it. 
+
+Hutao-ghost: Here are the top 30 eigenvectors/eigenfaces. 

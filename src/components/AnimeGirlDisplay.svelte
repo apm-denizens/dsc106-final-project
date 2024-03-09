@@ -139,7 +139,6 @@
         });
     });
 
-
 </script>
 <div style:display={sceneIndex >= sceneLowerBound && sceneIndex < sceneUpperBound ? 'block' : 'none'}>
     <div style="display: flex; flex-direction: row;">
