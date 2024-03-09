@@ -43,3 +43,22 @@ HuTao-ghost: All of the blue datapoints are projected onto the red line, creatin
 HuTao-ghost: Those distances can be thought of as the *information lost* by the projection. The longer those lines, the "farther off" the projection is, and the greater the information loss. 
 HuTao-ghost: Move your mouse over the plot to choose a new projection direction. Try to find the direction that incurs minimal information loss. Also pay attention to the variance of the projected datapoints in the 1D line plot below. I'll give you a moment to play around with this interactive visualization. 
 HuTao-ghost: 
+
+HuTao-ghost: This is the direction that approximately minimizes the information loss. 
+HuTao-ghost: 
+HuTao-ghost: Furthermore, the variance of the projections is also maximized. You can go back to a few slides and confirm this. 
+
+HuTao-ghost: ***Maximizing variance is equivalent to minimizing information loss*** This is a very important and interesting conclusion. 
+
+HuTao-ghost: Focusing on the idea of variance, the variance calculation can be represented in a very convenient way. 
+HuTao-ghost: If you center the data, the mean will be zero, leading the expression to just be a sum of multiplications between each projected datapoint and itself. 
+HuTao-ghost: A sum of multiplications is very similar to a dot product. So similar to the extent that it's computationally identical as the dot product. 
+HuTao-ghost: In this case, the Xc u notation is just a matrix multiplication, which calculates the dot product between each centered datapoint and the direction vector, i.e. it represents the projection of each datapoint onto the direction vector.
+HuTao-ghost: The transpose notation is computationally equivalent to the dot product. Basically going the other way in the dot product matrix multiplication relationship. 
+HuTao-ghost: Finally you can factor in the transpose notation to get this form. 1/n * Xc.T @ Xc is the *covariance matrix* of the data. 
+HuTao-ghost: Any matrix multiplied by it's transpose is a symmetric matrix, meaning the covariance matrix, which is a result of such a condition, is symmetric. 
+HuTao-ghost: If you recall the spectral theorem from linear algebra, you'll remember that for any symmetric matrix S, the expression u.T @ S @ u, is maximized by the top eigenvector and minimized by the bottom eigenvector.
+HuTao-ghost: Going back to the images, we can calculate the covariance matrix, and find the top eigenvectors, which will maximize that expression, which is identical to the variance. 
+
+HuTao-ghost: These are the top 10 eigenvectors. 
+Luigi-scared: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!

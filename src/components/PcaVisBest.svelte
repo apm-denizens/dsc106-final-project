@@ -5,18 +5,14 @@
     import * as d3 from "d3";
     type Features = "x" | "y"
 
-    let loaded = false;
-
-    let mouseCX = 0;
-    let mouseCY = 0;
-    let uVectorX = 1 / Math.sqrt(2);
-    let uVectorY = 1 / Math.sqrt(2);
+    let uVectorX = 0.860226827426804
+    let uVectorY = 0.5099115662300823
 
     // console.log(scrollIndex)
 
     onMount(async () => {
-        let svg_full = d3.select("#full");
-        let svg_proj = d3.select("#projected");
+        let svg_full = d3.select("#full-best");
+        let svg_proj = d3.select("#projected-best");
         let width = 800;
         let height = 600;
         let inner_border = 50;
@@ -94,7 +90,6 @@
 
             // plot the u vector direction
             svg_full.append("line")
-                .attr("id", "uVector")
                 .attr("x1", x2CX(uVectorX * -10000))
                 .attr("y1", y2CY(uVectorY * -10000))
                 .attr("x2", x2CX(uVectorX * 10000))
@@ -128,7 +123,6 @@
                 totalInformationLoss += informationLoss;
 
                 svg_full.append("line")
-                    .attr("class", "projection")
                     .attr("x1", x2CX(datapoint.x))
                     .attr("y1", y2CY(datapoint.y))
                     .attr("x2", x2CX(projectedX))
@@ -138,127 +132,34 @@
                     .attr("opacity", 0.25);
 
                 svg_full.append("circle")
-                    .attr("class", "projection")
                     .attr("cx", x2CX(projectedX))
                     .attr("cy", y2CY(projectedY))
                     .attr("r", 3)
                     .attr("fill", "red");
 
                 svg_proj.append("circle")
-                    .attr("class", "projection")
                     .attr("cx", x2CX(dotProduct))
                     .attr("cy", 50)
                     .attr("r", 3)
                     .attr("fill", "red");
             }
 
-            d3.selectAll(".svglabel").remove()
+            // d3.selectAll(".svglabel").remove()
             svg_full.append("text")
-                .attr("class", "svglabel")
                 .attr("x", 15)
                 .attr("y", 30)
                 .text(`Total Information Loss: ${totalInformationLoss.toFixed(2)}`);
             svg_proj.append("text")
-                .attr("class", "svglabel")
                 .attr("x", 15)
                 .attr("y", 30)
                 .text(`Projection Variance: ${d3.variance(projections)!.toFixed(2)}`);
-        
-
-            // svg listen for mouse move events
-            // svg_full.on("mousemove", function (event) {
-            //     mouseCX = event.offsetX;
-            //     mouseCY =event.offsetY;
-            // });
-
-            // inverses of the 2CX functions
-            function x2CX_INV(mouseX: number) {
-                const real_width = width - 2 * inner_border;
-                const percentage = (mouseX - inner_border) / real_width;
-                return percentage * (max_x - min_x) + min_x;
-            }
-
-            function y2CY_INV(mouseY: number) {
-                const real_height = height - 2 * inner_border;
-                const percentage = (mouseY - inner_border) / real_height;
-                return percentage * (max_y - min_y) + min_y;
-            }
-
-            svg_full.on("mousemove", function (event) {
-                const vectorXUnormalized = x2CX_INV(event.offsetX);
-                const vectorYUnormalized = y2CY_INV(event.offsetY);
-                const vectorUnormalizedLength = Math.sqrt(vectorXUnormalized ** 2 + vectorYUnormalized ** 2);
-
-                uVectorX = vectorXUnormalized / vectorUnormalizedLength;
-                uVectorY = vectorYUnormalized / vectorUnormalizedLength;
-                console.log(uVectorX, uVectorY, Math.sqrt(uVectorX ** 2 + uVectorY ** 2));
-
-                // update u vector display
-                svg_full.select("#uVector")
-                    .attr("x1", x2CX(uVectorX * -10000))
-                    .attr("y1", y2CY(uVectorY * -10000))
-                    .attr("x2", x2CX(uVectorX * 10000))
-                    .attr("y2", y2CY(uVectorY * 10000))
-
-                d3.selectAll(".projection").remove();
-
-                // plot projections
-                let totalInformationLoss = 0;
-                const projections: number[] = []
-                for(const datapoint of data) {
-                    // calculate dot product of u vector and datapoint
-                    const dotProduct = uVectorX * datapoint.x + uVectorY * datapoint.y;
-                    projections.push(dotProduct);
-
-                    const projectedX = dotProduct * uVectorX;
-                    const projectedY = dotProduct * uVectorY;
-                    const informationLoss = Math.sqrt((datapoint.x - projectedX) ** 2 + (datapoint.y - projectedY) ** 2);
-                    totalInformationLoss += informationLoss;
-
-                    svg_full.append("line")
-                        .attr("class", "projection")
-                        .attr("x1", x2CX(datapoint.x))
-                        .attr("y1", y2CY(datapoint.y))
-                        .attr("x2", x2CX(projectedX))
-                        .attr("y2", y2CY(projectedY))
-                        .attr("stroke", "red")
-                        .attr("stroke-width", 2)
-                        .attr("opacity", 0.25);
-
-                    svg_full.append("circle")
-                        .attr("class", "projection")
-                        .attr("cx", x2CX(projectedX))
-                        .attr("cy", y2CY(projectedY))
-                        .attr("r", 3)
-                        .attr("fill", "red");
-                    
-                    svg_proj.append("circle")
-                        .attr("class", "projection")
-                        .attr("cx", x2CX(dotProduct))
-                        .attr("cy", 50)
-                        .attr("r", 3)
-                        .attr("fill", "red");
-                }
-
-                d3.selectAll(".svglabel").remove()
-                svg_full.append("text")
-                    .attr("class", "svglabel")
-                    .attr("x", 15)
-                    .attr("y", 30)
-                    .text(`Total Information Loss: ${totalInformationLoss.toFixed(2)}`);
-                svg_proj.append("text")
-                    .attr("class", "svglabel")
-                    .attr("x", 15)
-                    .attr("y", 30)
-                    .text(`Projection Variance: ${d3.variance(projections)!.toFixed(2)}`);
-            })
         }
     });
 
 
 </script>
 
-<div style="pointer-events: auto;" style:display={sceneIndex >= 28 && sceneIndex < 33 ? 'block' : 'none'}>
-    <svg id="full" style="border: 1px solid black; border-radius: 5px; display: block; margin-bottom: 5px;"></svg>
-    <svg id="projected" style="border: 1px solid black; border-radius: 5px; display: block;"></svg>
+<div style="pointer-events: auto;" style:display={sceneIndex >= 33 && sceneIndex < 37 ? 'block' : 'none'}>
+    <svg id="full-best" style="border: 1px solid black; border-radius: 5px; display: block; margin-bottom: 5px;"></svg>
+    <svg id="projected-best" style="border: 1px solid black; border-radius: 5px; display: block;"></svg>
 </div>

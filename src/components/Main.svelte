@@ -2,10 +2,12 @@
     import {onMount} from "svelte";
     import PcaVis from "./PcaVis.svelte";
     import AnimeGirlDisplay from "./AnimeGirlDisplay.svelte";
-    import HuTao from "./HuTao.svelte";
+    import Dialogue from "./Dialogue.svelte";
     import Controls from "./Controls.svelte";
+    import PcaVisBest from "./PcaVisBest.svelte";
+    import LinAlg from "./LinAlg.svelte";
 
-    let sceneIndex = 28;
+    let sceneIndex = 42;
     let totalScenes = 0;
 
     onMount(async () => {
@@ -34,6 +36,8 @@
             <Controls {sceneIndex} />
             <AnimeGirlDisplay {sceneIndex} />
             <PcaVis {sceneIndex} />
+            <PcaVisBest {sceneIndex} />
+            <LinAlg {sceneIndex} />
         </article>
         <nav id="right-sidebar" style="pointer-events: auto; border: 1px solid black; border-radius: 5px;">
             <button>▶</button>
@@ -41,7 +45,7 @@
     </div>
 </div>
 
-<HuTao {sceneIndex} bind:totalScenes={totalScenes} />
+<Dialogue {sceneIndex} bind:totalScenes={totalScenes} />
 <div style="position: absolute; bottom: 0; right: 0; z-index: 1;">{sceneIndex}/{totalScenes-1}</div>
 
 <style>
