@@ -54,7 +54,7 @@
             {#if currentLine.text}
                 <div
                     id="dialogue"
-                    style="flex-grow: 1; background-color: rgba(255, 255, 255, 0.95); padding: 20px;"
+                    style="flex-grow: 1; background-color: rgba(255, 255, 255, 0.95); padding: 20px; border: 1px solid black; border-radius: 5px; margin-left: 2px;"
                 >
                     <strong>{currentLine.character}</strong><br>
                     {currentLine.text}

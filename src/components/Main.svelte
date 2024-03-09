@@ -3,6 +3,7 @@
     import PcaVis from "./PcaVis.svelte";
     import AnimeGirlDisplay from "./AnimeGirlDisplay.svelte";
     import HuTao from "./HuTao.svelte";
+    import Controls from "./Controls.svelte";
 
     let sceneIndex = 0;
     let totalScenes = 0;
@@ -26,14 +27,15 @@
         <h1>HuTao Teaches Luigi Principal Component Analysis</h1>
     </header>
     <div class="main-content" style="display: flex; flex: 1;">
-        <nav id="left-sidebar" style="pointer-events: auto;">
+        <nav id="left-sidebar" style="pointer-events: auto; border: 1px solid black; border-radius: 5px;">
             <button>◀</button>
         </nav>
         <article>
+            <Controls {sceneIndex} />
             <AnimeGirlDisplay {sceneIndex} />
             <!-- <PcaVis {sceneIndex} /> -->
         </article>
-        <nav id="right-sidebar" style="pointer-events: auto;">
+        <nav id="right-sidebar" style="pointer-events: auto; border: 1px solid black; border-radius: 5px;">
             <button>▶</button>
         </nav>
     </div>
