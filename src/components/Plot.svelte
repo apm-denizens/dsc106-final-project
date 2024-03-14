@@ -45,6 +45,10 @@
             .attr("fill", "red")
 
         document.getElementById("svg")!.addEventListener("mousemove", (e) => {
+
+            // finding the closest point to mouse in svg space
+
+
             // calculate the mouse position in the original data space
             const mouseX = getSVGX.invert(e.offsetX);
             const mouseY = getSVGY.invert(e.offsetY);
@@ -77,11 +81,30 @@
                 .attr("cy", getSVGY(data[closest.index][1]))
                 .attr("r", 3)
                 .attr("fill", "blue")
-            svg.select(".closest-point-lines").remove()
+
+            svg.selectAll(".closest-point-lines").remove()
             svg.append("line")
                 .attr("class", "closest-point-lines")
                 .attr("x1", e.offsetX)
                 .attr("y1", e.offsetY)
+                .attr("x2", getSVGX(data[closest.index][0]))
+                .attr("y2", getSVGY(data[closest.index][1]))
+                .attr("stroke", "black")
+                .attr("stroke-width", 1)
+            
+            svg.append("line")
+                .attr("class", "closest-point-lines")
+                .attr("x1", getSVGX(data[closest.index][0]))
+                .attr("y1", svgHeight + svgPadding)
+                .attr("x2", getSVGX(data[closest.index][0]))
+                .attr("y2", getSVGY(data[closest.index][1]))
+                .attr("stroke", "black")
+                .attr("stroke-width", 1)
+
+            svg.append("line")
+                .attr("class", "closest-point-lines")
+                .attr("x1", svgPadding)
+                .attr("y1", getSVGY(data[closest.index][1]))
                 .attr("x2", getSVGX(data[closest.index][0]))
                 .attr("y2", getSVGY(data[closest.index][1]))
                 .attr("stroke", "black")
