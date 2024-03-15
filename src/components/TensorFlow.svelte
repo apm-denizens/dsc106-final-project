@@ -3,22 +3,30 @@
     import { onMount } from "svelte";
     import * as d3 from "d3"
     import * as tf from "@tensorflow/tfjs"
-
+    import updateOffScreenCanvas from "./FaceDisplay/updateOffScreenCanvas"
+    import { unzipAndLoad } from "./Unzip/loadAndUnzip";
 
     onMount(async () => {
-        const facesText = await d3.text("./anime_girls_2000x4096.csv")
+        const facesText = await unzipAndLoad("./anime_girls_2000x4096.csv.zip")
 
         const faces = tf.tensor2d(d3.csvParseRows(facesText, d3.autoType) as number[][])
         const faces_col_means = faces.mean(0)
         const faces_centered = faces.sub(faces_col_means)
+        const faces_array = await faces.array() as number[][]
 
-        const eigenFacesText = await d3.text("./eigenfaces-2000.csv")
+        const eigenFacesText = await unzipAndLoad("./eigenfaces-2000.csv.zip")
         const eigenFaces = tf.tensor2d(d3.csvParseRows(eigenFacesText, d3.autoType) as number[][])
+        const eigenFacesNormalized = eigenFaces.sub(eigenFaces.min(1, true)).div(eigenFaces.max(1, true).sub(eigenFaces.min(1, true))).mul(tf.scalar(255)).toInt()
+        const eigenFacesNormalizedArray = await eigenFacesNormalized.array() as number[][]
 
         const topTwo = eigenFaces.slice([0, 0], [2, 4096])
         const projected = faces_centered.matMul(topTwo.transpose())
 
         const data = await projected.array() as number[][]
+
+        const closestCanvas = document.getElementById("closest") as HTMLCanvasElement
+        const closestCtx = closestCanvas.getContext("2d") as CanvasRenderingContext2D
+        closestCtx.drawImage(updateOffScreenCanvas(faces_array[0]), 0, 0, closestCanvas.width, closestCanvas.height)
 
         const svgWidth = 500;
         const svgHeight = 400;
@@ -58,9 +66,6 @@
             .attr("fill", "red")
 
         document.getElementById("svg")!.addEventListener("mousemove", (e) => {
-
-            // finding the closest point to mouse in svg space
-
 
             // calculate the mouse position in the original data space
             const mouseX = getSVGX.invert(e.offsetX);
@@ -123,17 +128,16 @@
                 .attr("cy", getSVGY(data[closest.index][1]))
                 .attr("r", 3)
                 .attr("fill", "blue")
-        })
 
-        // console.log(eigenFaces.shape)
-        // console.log(await faces_centered.array())
-        // console.log(await projected.array())
+            const offScreenCanvas = updateOffScreenCanvas(faces_array[closest.index])
+            closestCtx.drawImage(offScreenCanvas, 0, 0, closestCanvas.width, closestCanvas.height)
+
+        })
     })
 
     
 </script>
 <div style="padding: 10px">
-
-    <p>sanity check</p>
     <svg id="svg" style="border: 1px solid black; border-radius: 5px;"></svg>
-    </div>
+    <canvas id="closest" width="256px" height="256px" style="border: 1px solid black; border-radius: 5px;"></canvas>
+</div>
