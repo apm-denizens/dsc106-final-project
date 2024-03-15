@@ -1,8 +1,9 @@
-Luigi-nervous: W-Where am I?
+Luigi-nervous-controls: W-Where am I?
 
-HuTao-ghost: Hello Luigi, I am HuTao, the 77th Director of the Wangsheng Funeral Parlor. I have been sent by the Adventurers' Guild to teach you about principal component analysis. 
+Luigi-scared-hutaospook: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!
 
-Luigi-scared: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!
+HuTao-ghost-hutaospook: Hello Luigi, I am HuTao, the 77th Director of the Wangsheng Funeral Parlor. I have been sent by the Adventurers' Guild to teach you about principal component analysis. 
+
 Luigi-scared: PLEASE SPARE ME. 
 
 HuTao-unamused: ...

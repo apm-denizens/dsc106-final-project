@@ -8,14 +8,24 @@
     import LinAlg from "./LinAlg.svelte";
     import CuteEigenface from "./CuteEigenface.svelte";
     import EigenvectorsDisplay from "./EigenvectorsDisplay.svelte";
+    import EigenvectorExploration from "./EigenvectorExploration/EigenvectorExploration.svelte";
+    import { loadDialogue, type Line } from "./loadDialogue";
+    import { unzipAndLoad } from "./Unzip/loadAndUnzip";
 
-    let sceneIndex = 50;
+    let sceneIndex = 0;
     let totalScenes = 0;
+    let lines: Line[] = [];
+    let currentLine: Line = {character: "", portraitSrc: "", scene: "", text: ""};
 
     onMount(async () => {
+        window.dialogueLinesPromise = loadDialogue() as Promise<Line[]>;
+        lines = await window.dialogueLinesPromise;
+
+        window.facesTextPromise = unzipAndLoad("./anime_girls_2000x4096.csv.zip");
+        window.eigenVectorsTextPromise = unzipAndLoad("./eigenfaces-2000.csv.zip");
+
         function prevScene() {sceneIndex = (sceneIndex - 1 + totalScenes) % totalScenes}
         function nextScene() {sceneIndex = (sceneIndex + 1) % totalScenes}
-
         document.getElementById("left-sidebar")!.addEventListener("click", prevScene);
         document.getElementById("right-sidebar")!.addEventListener("click", nextScene);
         document.addEventListener("keydown", (e) => {
@@ -23,6 +33,12 @@
             else if (e.key === "ArrowRight") {nextScene()}
         });
     });
+
+
+    $: {
+        currentLine = lines[sceneIndex];
+        console.log(currentLine)
+    }
 
 </script>
 
@@ -35,13 +51,17 @@
             <button>◀</button>
         </nav>
         <article>
-            <Controls {sceneIndex} />
+
+            {#if currentLine.scene == "controls"}
+                <Controls {sceneIndex} />
+            {/if}
             <AnimeGirlDisplay {sceneIndex} />
             <PcaVis {sceneIndex} />
             <PcaVisBest {sceneIndex} />
             <LinAlg {sceneIndex} />
             <CuteEigenface {sceneIndex} />
-            <EigenvectorsDisplay {sceneIndex} />
+            <EigenvectorExploration {sceneIndex} />
+            <!-- <EigenvectorsDisplay {sceneIndex} /> -->
         </article>
         <nav id="right-sidebar" style="pointer-events: auto; border: 1px solid black; border-radius: 5px;">
             <button>▶</button>

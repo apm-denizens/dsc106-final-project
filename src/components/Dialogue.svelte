@@ -8,6 +8,7 @@
     interface Line {
         character: string;
         portraitSrc: string;
+        scene: string;
         text: string;
     }
 
@@ -26,11 +27,13 @@
 
             const splits_2 = character_pose.split("-");
             const character = splits_2[0].trim();
-            const pose = splits_2[1] ? splits_2[1].trim() : 'normal'; // Assuming a default pose if not specified
+            const pose = splits_2[1] ? splits_2[1].trim() : 'normal';
+            const scene = splits_2[2] ? splits_2[2].trim() : '';
 
             lines.push({
                 character: character,
                 portraitSrc: `./images/${character.toLowerCase()}/${character.toLowerCase()}-${pose}.png`,
+                scene: scene,
                 text: text
             });
         }
