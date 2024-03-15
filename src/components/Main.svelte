@@ -14,7 +14,7 @@
     import HutaoSpook from "./HutaoSpook.svelte";
     import BooSpook from "./BooSpook.svelte";
 
-    let sceneIndex: number = 89;
+    let sceneIndex: number = 0;
     let totalScenes: number = 89;
 
     let lines: Line[] = [];
