@@ -11,18 +11,24 @@
     import EigenvectorExploration from "./EigenvectorExploration/EigenvectorExploration.svelte";
     import { loadDialogue, type Line } from "./loadDialogue";
     import { unzipAndLoad } from "./Unzip/loadAndUnzip";
+    import HutaoSpook from "./HutaoSpook.svelte";
+    import BooSpook from "./BooSpook.svelte";
 
-    let sceneIndex = 0;
-    let totalScenes = 0;
+    let sceneIndex: number = 30;
+    let totalScenes: number = 60;
+
     let lines: Line[] = [];
-    let currentLine: Line = {character: "", portraitSrc: "", scene: "", text: ""};
+    let currentLine: Line = {character: "", portraitSrc: "", scene: "", stage: 0, text: ""};
+    let scene: string = ""
+    let stage: number = 0;
+
+    let ready = false;
 
     onMount(async () => {
         window.dialogueLinesPromise = loadDialogue() as Promise<Line[]>;
-        lines = await window.dialogueLinesPromise;
-
-        window.facesTextPromise = unzipAndLoad("./anime_girls_2000x4096.csv.zip");
+        window.facesTextPromise = unzipAndLoad("./anime_girls_mario.csv.zip");
         window.eigenVectorsTextPromise = unzipAndLoad("./eigenfaces-2000.csv.zip");
+        lines = await window.dialogueLinesPromise;
 
         function prevScene() {sceneIndex = (sceneIndex - 1 + totalScenes) % totalScenes}
         function nextScene() {sceneIndex = (sceneIndex + 1) % totalScenes}
@@ -32,16 +38,20 @@
             if (e.key === "ArrowLeft") {prevScene()} 
             else if (e.key === "ArrowRight") {nextScene()}
         });
+
+        ready = true;
     });
 
 
     $: {
         currentLine = lines[sceneIndex];
-        console.log(currentLine)
+        if (currentLine) {
+            scene = currentLine.scene;
+            stage = currentLine.stage;
+        }
     }
 
 </script>
-
 <div class="container" style="display: flex; flex-direction: column; height: 100vh; width: 100%; ">
     <header style="text-align: center; background-color: gray;">
         <h1>HuTao Teaches Luigi Principal Component Analysis</h1>
@@ -51,17 +61,39 @@
             <button>◀</button>
         </nav>
         <article>
-
-            {#if currentLine.scene == "controls"}
+            {#if ready && currentLine}
+            <div style:display={scene == "controls" ? "block": "none"}>
                 <Controls {sceneIndex} />
+            </div>
+            <div style:display={scene == "hutaospook" ? "block": "none"}>
+                <HutaoSpook />
+            </div>
+            <div style:display={scene == "animedisplay" ? "block": "none"}>
+                <AnimeGirlDisplay stage={stage} />
+            </div>
+            <div style:display={scene == "boospook" ? "block": "none"}>
+                <BooSpook />
+            </div>
+            <div style:display={scene == "pcaimage" ? "block": "none"}>
+                <img src="./pca-image.png" width="600px" />
+            </div>
+            <div style:display={scene == "4096to2" ? "block": "none"}>
+                <img src="./4096to2.png" width="600px" />
+            </div>
+            <div style:display={scene=="pcavis" ? "block" : "none"}>
+                <PcaVis />
+            </div>
+            <div style:display={scene=="pcavisideal" ? "block" : "none"}>
+                <img src="./pca-vis-ideal.png" width="500px" />
+            </div>
+                <!-- <AnimeGirlDisplay {sceneIndex} />
+                <PcaVis {sceneIndex} />
+                <PcaVisBest {sceneIndex} />
+                <LinAlg {sceneIndex} />
+                <CuteEigenface {sceneIndex} />
+                <EigenvectorExploration {sceneIndex} /> -->
+                <!-- <EigenvectorsDisplay {sceneIndex} /> -->
             {/if}
-            <AnimeGirlDisplay {sceneIndex} />
-            <PcaVis {sceneIndex} />
-            <PcaVisBest {sceneIndex} />
-            <LinAlg {sceneIndex} />
-            <CuteEigenface {sceneIndex} />
-            <EigenvectorExploration {sceneIndex} />
-            <!-- <EigenvectorsDisplay {sceneIndex} /> -->
         </article>
         <nav id="right-sidebar" style="pointer-events: auto; border: 1px solid black; border-radius: 5px;">
             <button>▶</button>
@@ -71,7 +103,6 @@
 
 <Dialogue {sceneIndex} bind:totalScenes={totalScenes} />
 <div style="position: absolute; bottom: 0; right: 0; z-index: 1;">{sceneIndex}/{totalScenes-1}</div>
-
 <style>
 
 #left-sidebar, #right-sidebar {

@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let sceneIndex: number;
+    export let stage: number;
 
     import { onMount } from "svelte";
     import * as d3 from "d3";
@@ -10,13 +10,15 @@
     let animeGirlIndex = 0;
 
     onMount(async () => {
-        const text = await d3.text("./anime_girls_2000x4096.csv")
+        console.log(window.facesTextPromise)
+        const text = await window.facesTextPromise;
         const animeGirls = d3.csvParseRows(text, d3.autoType) as number[][];
 
         const canvas = document.getElementById('anime-girl-display') as HTMLCanvasElement;
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
         
         displayIndexImage();
+        console.log("displaying image")
         
         function displayIndexImage() {
             const animeGirl = animeGirls[animeGirlIndex];
@@ -140,7 +142,7 @@
     });
 
 </script>
-<div style:display={sceneIndex >= sceneLowerBound && sceneIndex < sceneUpperBound ? 'block' : 'none'}>
+<div style:display={stage >= 0 ? 'block' : 'none'}>
     <div style="display: flex; flex-direction: row;">
         <div style="margin-right: 5px; pointer-events: auto;">
             <div  style="border: 1px solid black; border-radius: 5px; padding: 5px; background-color: white;">
@@ -160,16 +162,16 @@
             </div>
         </div>
         <div>
-            <canvas id="anime-girls-display-4" width="128px" height="32px" style="border: 1px solid black; border-radius: 5px; pointer-events: auto;" style:display={sceneIndex >= 10 && sceneIndex < 13 ? "block" : "none"}></canvas>
+            <canvas id="anime-girls-display-4" width="128px" height="32px" style="border: 1px solid black; border-radius: 5px; pointer-events: auto;" style:display={stage==1 ? "block" : "none"}></canvas>
         </div>
         <div>
-            <canvas id="anime-girls-display-400" width="640px" height="640px" style="border: 1px solid black; border-radius: 5px; pointer-events: auto;" style:display={sceneIndex >= 13 && sceneIndex < 14 ? "block" : "none"}></canvas>
+            <canvas id="anime-girls-display-400" width="640px" height="640px" style="border: 1px solid black; border-radius: 5px; pointer-events: auto;" style:display={stage==2 ? "block" : "none"}></canvas>
         </div>
         <div>
-            <canvas id="anime-girls-display-900" width="960px" height="960px" style="border: 1px solid black; border-radius: 5px; pointer-events: auto;" style:display={sceneIndex >= 14 && sceneIndex < 15 ? "block" : "none"}></canvas>
+            <canvas id="anime-girls-display-900" width="960px" height="960px" style="border: 1px solid black; border-radius: 5px; pointer-events: auto;" style:display={stage==3 ? "block" : "none"}></canvas>
         </div>
         <div>
-            <canvas id="anime-girls-display-2000" width="1600px" height="1280px" style="border: 1px solid black; border-radius: 5px; position: absolute; top: 0; left: 0; z-index: -1; pointer-events: auto;" style:display={sceneIndex >= 15 ? "block" : "none"}></canvas>
+            <canvas id="anime-girls-display-2000" width="1600px" height="1280px" style="border: 1px solid black; border-radius: 5px; position: absolute; top: 0; left: 0; z-index: -1; pointer-events: auto;" style:display={stage==4 ? "block" : "none"}></canvas>
         </div>
     </div>
     <canvas id="offscreen-canvas" width="64px" height="64px" style="display: none;"></canvas>

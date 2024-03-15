@@ -2,54 +2,60 @@ Luigi-nervous-controls: W-Where am I?
 
 Luigi-scared-hutaospook: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!
 
-HuTao-ghost-hutaospook: Hello Luigi, I am HuTao, the 77th Director of the Wangsheng Funeral Parlor. I have been sent by the Adventurers' Guild to teach you about principal component analysis. 
+Luigi-scared-hutaospook: PLEASE SPARE ME. 
 
-Luigi-scared: PLEASE SPARE ME. 
+HuTao-ghost-hutaospook: Do not fear! I am here to teach you about principal component analysis.
 
-HuTao-unamused: ...
+HuTao-ghost-animedisplay-0: Lets say that we have some images of faces which we want to analyze. 
+Luigi-nervous-animedisplay-0: M-M-Mario?!
+Luigi-nervous-animedisplay-0: You monster! What have you done to him?!
+Luigi-nervous-animedisplay-0: King Boo sent you didn't he!?
 
-HuTao-unamused: I am not here to harm you. I am here to teach you. 
+Luigi-scared-boospook: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!
+HuTao-spook-boospook: If you want to see your brother again, be sure to properly learn PCA ok. 
+Luigi-scared-boospook: Mama-mia! I'll do anything! Just please don't hurt him!
 
-Luigi-scared: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!
+HuTao-ghost-animedisplay-0: If you want to analyze these images, you could start off going through them manually. 
+HuTao-ghost-animedisplay-1: If there are only a few images, it should be pretty straightforward.
+HuTao-ghost-animedisplay-1: Hover over the images to get a closer look. From the few images you see here, there should be no problem in quickly seeing that there are clear differences in appearance and artistic style. 
+HuTao-ghost-animedisplay-1:
 
-HuTao-unamused: Anyhow... let's get started...
+Luigi-nervous-animedisplay-1: Uhh... you can evaluate everything at a glance I guess.
+HuTao-ghost-animedisplay-1: Exactly!
 
-HuTao-ghost: Lets say that we have some images of faces which we want to analyze. 
-HuTao-ghost: We could start off by going through each and every image to figure out similarities, differences, or patterns. 
-HuTao-ghost: If there are only a few images, it should be pretty straightforward.
-HuTao-ghost: Hover over the images to get a closer look. From the few images you see here, there should be no problem in quickly seeing that there are clear artistic styles. 
-HuTao-ghost: But...
-HuTao-ghost: But... what if we have hundreds...
-HuTao-ghost: But... what if we have hundreds... thousands...
-HuTao-spook: But... what if we have hundreds... thousands... or even TENS OF THOUSANDS of images?
+HuTao-ghost-animedisplay-1: But...
+HuTao-ghost-animedisplay-2: But... what if we have hundreds...
+HuTao-ghost-animedisplay-3: But... what if we have hundreds... thousands...
+Luigi-nervous-animedisplay-3: Ah ok... I see the point you're trying to make. That's a lot of images to go through manually. 
 
-Luigi-scared: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!
+HuTao-spook-animedisplay-4: OR EVEN TENS OF THOUSANDS of images?
+Luigi-scared-animedisplay-4: Mama-mia! That's a lot of images!
+HuTao-ghost-animedisplay-4: Yes, yes, truly a nightmare. I'll give you a moment to immerse yourself in such horror.
+HuTao-ghost-animedisplay-4:
 
-HuTao-ghost: Yes, yes, truly a nightmare. I'll give you a moment to immerse yourself in such horror.
-HuTao-ghost:
+HuTao-ghost-animedisplay-4: As you can probably tell, this task would be extremely time-consuming and tedious.
+HuTao-ghost-animedisplay-4: However, what if I told you that there is a way to quickly gain insight into the dataset without having to go through each and every image?
+Luigi-nervous-animedisplay-4: That would be very convenient... but it would be more convenient if you could just let Mario--
 
-HuTao-ghost: As you can probably tell, this task would be extremely time-consuming and tedious.
-HuTao-ghost: However, what if I told you that there is a way to quickly gain insight into the dataset without having to go through each and every image?
-HuTao-ghost: A way to go about this is through reducing the dimensionality of the images to 2 or 3 dimensions.
-HuTao-ghost: This makes it so that you can can create a plot of all of the image representations, and quickly glean insights. 
+HuTao-ghost-pcaimage: A way to go about this is through reducing the dimensionality of the images to 2 or 3 dimensions.
+HuTao-ghost-pcaimage: This makes it so that you can can create a plot of all of the image representations, and quickly glean insights. 
+HuTao-ghost-pcaimage: However, as you might imagine, there are trade-offs. 
 
-HuTao-ghost: However, as you might imagine, there are trade-offs. 
-HuTao-ghost: Our images are 64x64 grayscale, which means that there are 4096 values are associated with each image.
-HuTao-ghost: To put it more formally, our images are 4096 dimensional vectors. 
-HuTao-ghost: If we want a 2 dimensional representation, that means we'll be losing 4094 dimensions of image information. 
-HuTao-ghost: Because of this, it's imperative that we find a representation that *minimizes the information lost*.
+HuTao-ghost-4096to2: Our images are 64x64 grayscale, which means that there are 4096 values are associated with each image.
+HuTao-ghost-4096to2: To put it more formally, our images are 4096 dimensional vectors. 
+HuTao-ghost-4096to2: If we want a 2 dimensional representation, that means we'll be losing 4094 dimensions of image information. 
+Luigi-nervous-4096to2: That's a lot of information to lose. Also p-please don't hurt him. 
+HuTao-ghost-4096to2: Because of this, it's imperative that we find a representation that *minimizes the information lost*.
 
-HuTao-ghost: To build some intuition for this idea, let's consider a simple example of finding good 1-dimensional representations of a dataset of 2-dimensional vectors.
-HuTao-ghost: All of the blue datapoints are projected onto the red line, creating a new representation, and the opaque red lines stretching from the blue points to the red line indicate the distance between the original datapoint and the new representation. 
-HuTao-ghost: Those distances can be thought of as the *information lost* by the projection. The longer those lines, the "farther off" the projection is, and the greater the information loss. 
-HuTao-ghost: Move your mouse over the plot to choose a new projection direction. Try to find the direction that incurs minimal information loss. Also pay attention to the variance of the projected datapoints in the 1D line plot below. I'll give you a moment to play around with this interactive visualization. 
-HuTao-ghost: 
+HuTao-ghost-pcavis: To build some intuition for this idea, let's consider a simple example of finding good 1-dimensional representations of a dataset of 2-dimensional vectors.
+HuTao-ghost-pcavis: All of the blue datapoints are projected onto the red line, creating a new representation, and the opaque red lines stretching from the blue points to the red line indicate the distance between the original datapoint and the new representation. 
+HuTao-ghost-pcavis: Those distances can be thought of as the *information lost* by the projection. The longer those lines, the "farther off" the projection is, and the greater the information loss. 
+HuTao-ghost-pcavis: Move your mouse over the plot to choose a new projection direction. Try to find the direction that incurs minimal information loss. Also pay attention to the variance of the projected datapoints in the 1D line plot below. I'll give you a moment to play around with this interactive visualization. 
+HuTao-ghost-pcavis: 
 
-HuTao-ghost: This is the direction that approximately minimizes the information loss. 
-HuTao-ghost: 
-HuTao-ghost: Furthermore, the variance of the projections is also maximized. You can go back to a few slides and confirm this. 
-
-HuTao-ghost: ***Maximizing variance is equivalent to minimizing information loss*** This is a very important and interesting conclusion. 
+HuTao-ghost-pcavisideal: This is the direction that approximately minimizes the information loss. 
+HuTao-ghost-pcavisideal: Furthermore, the variance of the projections is also maximized. You can go back to check this. 
+HuTao-ghost-pcavisideal: ***Maximizing variance is equivalent to minimizing information loss*** This is a very important and interesting conclusion. 
 
 HuTao-ghost: Focusing on the idea of variance, the variance calculation can be represented in a very convenient way. 
 HuTao-ghost: If you center the data, the mean will be zero, leading the expression to just be a sum of multiplications between each projected datapoint and itself. 

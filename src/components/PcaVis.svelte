@@ -1,5 +1,4 @@
 <script lang="ts">
-    export let sceneIndex: number;
 
     import { onMount } from "svelte";
     import * as d3 from "d3";
@@ -258,7 +257,7 @@
 
 </script>
 
-<div style="pointer-events: auto;" style:display={sceneIndex >= 28 && sceneIndex < 33 ? 'block' : 'none'}>
+<div style="pointer-events: auto;">
     <svg id="full" style="border: 1px solid black; border-radius: 5px; display: block; margin-bottom: 5px;"></svg>
     <svg id="projected" style="border: 1px solid black; border-radius: 5px; display: block;"></svg>
 </div>
