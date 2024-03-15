@@ -1,9 +1,25 @@
 <script lang="ts">
 
-    import * as d3 from "d3";
-    import { onMount } from "svelte"
+    import { onMount } from "svelte";
+    import * as d3 from "d3"
+    import * as tf from "@tensorflow/tfjs"
+
 
     onMount(async () => {
+        const facesText = await d3.text("./anime_girls_2000x4096.csv")
+
+        const faces = tf.tensor2d(d3.csvParseRows(facesText, d3.autoType) as number[][])
+        const faces_col_means = faces.mean(0)
+        const faces_centered = faces.sub(faces_col_means)
+
+        const eigenFacesText = await d3.text("./eigenfaces-2000.csv")
+        const eigenFaces = tf.tensor2d(d3.csvParseRows(eigenFacesText, d3.autoType) as number[][])
+
+        const topTwo = eigenFaces.slice([0, 0], [2, 4096])
+        const projected = faces_centered.matMul(topTwo.transpose())
+
+        const data = await projected.array() as number[][]
+
         const svgWidth = 500;
         const svgHeight = 400;
         const svgPadding = 60;
@@ -12,9 +28,6 @@
             .attr("width", svgWidth + svgPadding * 2)
             .attr("height", svgHeight + svgPadding * 2)
             .style("pointer-events", "auto")
-
-        const dataText = await d3.text("./projected-data.csv")
-        const data = d3.csvParseRows(dataText, d3.autoType) as number[][];
 
         const getSVGX = d3.scaleLinear()
             .domain([d3.min(data, d => d[0]) as number, d3.max(data, d => d[0]) as number])
@@ -72,15 +85,8 @@
             }, {dist: Infinity, index: -1});
             console.log(mouseX, mouseY, closest)
 
-            // highlight the closest point
-            svg.select("#closest-point").remove()
-            svg.append("circle")
-                .attr("id", "closest-point")
-                .attr("cx", getSVGX(data[closest.index][0]))
-                .attr("cy", getSVGY(data[closest.index][1]))
-                .attr("r", 3)
-                .attr("fill", "blue")
-
+            
+            // add lines to the closest point
             svg.selectAll(".closest-point-lines").remove()
             svg.append("line")
                 .attr("class", "closest-point-lines")
@@ -90,7 +96,7 @@
                 .attr("y2", getSVGY(data[closest.index][1]))
                 .attr("stroke", "black")
                 .attr("stroke-width", 1)
-            
+
             svg.append("line")
                 .attr("class", "closest-point-lines")
                 .attr("x1", getSVGX(data[closest.index][0]))
@@ -108,13 +114,26 @@
                 .attr("y2", getSVGY(data[closest.index][1]))
                 .attr("stroke", "black")
                 .attr("stroke-width", 1)
+
+            // highlight the closest point
+            svg.select("#closest-point").remove()
+            svg.append("circle")
+                .attr("id", "closest-point")
+                .attr("cx", getSVGX(data[closest.index][0]))
+                .attr("cy", getSVGY(data[closest.index][1]))
+                .attr("r", 3)
+                .attr("fill", "blue")
         })
-        
+
+        // console.log(eigenFaces.shape)
+        // console.log(await faces_centered.array())
+        // console.log(await projected.array())
     })
 
+    
 </script>
 <div style="padding: 10px">
 
-<p>sanity check</p>
-<svg id="svg" style="border: 1px solid black; border-radius: 5px;"></svg>
-</div>
+    <p>sanity check</p>
+    <svg id="svg" style="border: 1px solid black; border-radius: 5px;"></svg>
+    </div>
