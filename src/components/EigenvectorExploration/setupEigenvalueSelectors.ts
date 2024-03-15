@@ -10,6 +10,8 @@ function setupEigenVectorSelector(eigenVectors: number[][], canvas_id: string, s
     eigenVectorDisplay.width = 256
     eigenVectorDisplay.height = 256
     eigenVectorDisplay.style.pointerEvents = "auto"
+    eigenVectorDisplay.style.border = "1px solid black"
+    eigenVectorDisplay.style.borderRadius = "5px"
     const eigenVectorDisplayCTX = eigenVectorDisplay.getContext("2d") as CanvasRenderingContext2D;
     eigenVectorDisplayCTX.drawImage(updateOffScreenCanvas(eigenVectors[selectedIndex]), 0, 0, 256, 256);
 
@@ -17,6 +19,8 @@ function setupEigenVectorSelector(eigenVectors: number[][], canvas_id: string, s
     selector.width = 192
     selector.height = 160
     selector.style.pointerEvents = "auto"
+    selector.style.border = "1px solid black"
+    selector.style.borderRadius = "5px"
     const selectorCTX = selector.getContext("2d") as CanvasRenderingContext2D;
     for (let i = 0; i < 5; i++) {
         for(let j=0; j<6; j++){
