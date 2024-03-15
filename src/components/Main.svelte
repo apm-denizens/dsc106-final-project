@@ -14,8 +14,8 @@
     import HutaoSpook from "./HutaoSpook.svelte";
     import BooSpook from "./BooSpook.svelte";
 
-    let sceneIndex: number = 30;
-    let totalScenes: number = 60;
+    let sceneIndex: number = 89;
+    let totalScenes: number = 89;
 
     let lines: Line[] = [];
     let currentLine: Line = {character: "", portraitSrc: "", scene: "", stage: 0, text: ""};
@@ -30,8 +30,8 @@
         window.eigenVectorsTextPromise = unzipAndLoad("./eigenfaces-2000.csv.zip");
         lines = await window.dialogueLinesPromise;
 
-        function prevScene() {sceneIndex = (sceneIndex - 1 + totalScenes) % totalScenes}
-        function nextScene() {sceneIndex = (sceneIndex + 1) % totalScenes}
+        function prevScene() {sceneIndex = Math.max(0, sceneIndex - 1)}
+        function nextScene() {sceneIndex = Math.min(totalScenes, sceneIndex + 1)}
         document.getElementById("left-sidebar")!.addEventListener("click", prevScene);
         document.getElementById("right-sidebar")!.addEventListener("click", nextScene);
         document.addEventListener("keydown", (e) => {
@@ -85,6 +85,38 @@
             </div>
             <div style:display={scene=="pcavisideal" ? "block" : "none"}>
                 <img src="./pca-vis-ideal.png" width="500px" />
+            </div>
+            <div style:display={scene=="linalg" ? "block" : "none"}>
+                <img src="./linalg/4.jpg" width="500px" />
+            </div>
+            <div style:display={scene=="specter" ? "block" : "none"}>
+                <img src="./specter.png" width="500px" />
+            </div>
+            <div style:display={scene=="cuteeigenface" ? "block" : "none"}>
+                <img src="./kindacute.png" width="500px" />
+            </div>
+            <div style:display={scene=="cuteeigenfacealt" ? "block" : "none"}>
+                <img src="./kindacute-alt.png" width="500px" />
+            </div>
+            <div style:display={scene=="dpprojection" ? "block" : "none"}>
+                <img src="./dpprojection.png" width="500px" />
+            </div>
+            <div style:display={scene=="eigenselector" ? "block" : "none"}>
+                <EigenvectorExploration />
+            </div>
+            <div style:display={scene=="template1" ? "block" : "none"}>
+                <img src="./template1.png" width="250px"/>
+            </div>
+            <div style:display={scene=="template1similar" ? "block" : "none"}>
+                <img src="./template1-similar.png" width="600px" />
+            </div>
+            <div style:display={scene=="template1dissimilar" ? "block" : "none"}>
+                <img src="./template1-dissimilar.png" width="600px" />
+            </div>
+
+            <div style:display={scene=="fin" ? "block" : "none"}>
+                <h2>FIN</h2>
+                <img src="./fin.png" width="600px" />
             </div>
                 <!-- <AnimeGirlDisplay {sceneIndex} />
                 <PcaVis {sceneIndex} />

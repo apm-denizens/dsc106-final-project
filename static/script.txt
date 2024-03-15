@@ -50,26 +50,65 @@ HuTao-ghost-4096to2: Because of this, it's imperative that we find a representat
 HuTao-ghost-pcavis: To build some intuition for this idea, let's consider a simple example of finding good 1-dimensional representations of a dataset of 2-dimensional vectors.
 HuTao-ghost-pcavis: All of the blue datapoints are projected onto the red line, creating a new representation, and the opaque red lines stretching from the blue points to the red line indicate the distance between the original datapoint and the new representation. 
 HuTao-ghost-pcavis: Those distances can be thought of as the *information lost* by the projection. The longer those lines, the "farther off" the projection is, and the greater the information loss. 
-HuTao-ghost-pcavis: Move your mouse over the plot to choose a new projection direction. Try to find the direction that incurs minimal information loss. Also pay attention to the variance of the projected datapoints in the 1D line plot below. I'll give you a moment to play around with this interactive visualization. 
+HuTao-ghost-pcavis: Move your mouse over the plot to choose a new projection direction. Try to find the direction that incurs minimal information loss. Also pay attention to the variance of the projected datapoints in the 1D line plot below. I'll give you a moment to play around with this interactive visualization. (press next to make this text box dissappear)
 HuTao-ghost-pcavis: 
 
-HuTao-ghost-pcavisideal: This is the direction that approximately minimizes the information loss. 
-HuTao-ghost-pcavisideal: Furthermore, the variance of the projections is also maximized. You can go back to check this. 
-HuTao-ghost-pcavisideal: ***Maximizing variance is equivalent to minimizing information loss*** This is a very important and interesting conclusion. 
+Luigi-nervous-pcavisideal: Is this the direction that minimizes the information loss? 
+HuTao-happy-pcavisideal: Yep! Precisely! You're so smart luigi!
+Luigi-nervous-pcavisideal: Furthermore, I'm also noticing that the variance of the projected datapoints is maximized. 
+Luigi-nervous-pcavisideal: So I'm guessing that if you're trying to find a lower dimensional representation through projecting the data, the best direction to minimize information loss also maximizes variance in the new projection space. 
+HuTao-happy-pcavisideal: Exactly! ***Maximizing variance is equivalent to minimizing information loss*** This is a very important and interesting conclusion. 
+HuTao-happy-pcavisideal: Wow Luigi, I'm surprised you're catching on so quickly!
+Luigi-nervous-pcavisideal: I'm surprised as well. It almost feels like some ghostly force is guiding me. 
 
-HuTao-ghost: Focusing on the idea of variance, the variance calculation can be represented in a very convenient way. 
-HuTao-ghost: If you center the data, the mean will be zero, leading the expression to just be a sum of multiplications between each projected datapoint and itself. 
-HuTao-ghost: A sum of multiplications is very similar to a dot product. So similar to the extent that it's computationally identical as the dot product. 
-HuTao-ghost: In this case, the Xc u notation is just a matrix multiplication, which calculates the dot product between each centered datapoint and the direction vector, i.e. it represents the projection of each datapoint onto the direction vector.
-HuTao-ghost: The transpose notation is computationally equivalent to the dot product. Basically going the other way in the dot product matrix multiplication relationship. 
-HuTao-ghost: Finally you can factor in the transpose notation to get this form. 1/n * Xc.T @ Xc is the *covariance matrix* of the data. 
-HuTao-ghost: Any matrix multiplied by it's transpose is a symmetric matrix, meaning the covariance matrix, which is a result of such a condition, is symmetric. 
-HuTao-ghost: If you recall the spectral theorem from linear algebra, you'll remember that for any symmetric matrix S, the expression u.T @ S @ u, is maximized by the top eigenvector and minimized by the bottom eigenvector.
-HuTao-ghost: Going back to the images, we can calculate the covariance matrix, and find the top eigenvectors, which will maximize that expression, which is identical to the variance. 
+HuTao-ghost-linalg: Starting from the plain old variance definition, you can perform some linear algebraic manipulations to rewrite it into this form. 
+HuTao-ghost-linalg: Our images are 4096 dimensional vectors, so the X array is a Nx4096 matrix, where N is the number of face images. 
+HuTao-ghost-linalg: There's also some stuff about centering, but you don't really need to worry about that. 
+HuTao-ghost-linalg: The important thing to note is that this expression u.T @ X.T @ X @ u should be familiar if you've taken a linear algebra course. 
+HuTao-ghost-linalg: But if you haven't it's basically a result of the *spectral theorem*...
+Luigi-nervous-specter: s-spectral? as in s-s-specters? 
+HuTao-ghost-specter: No, no, no. Not that kind of spectral. It's referring to the spectrum of a matrix. 
+HuTao-ghost-linalg: Basically one of the results of the spectral theorem here is that the direction vector that maximizes the projection variance is the top eigenvector of the covariance matrix, which is symmetric.
+Luigi-nervous-linalg: I-I see... I think. 
+HuTao-ghost-linalg: Don't worry about the spectral theorem. Just know that the eigenvectors of the covariance matrix provide a way for you to find the best projection direction. 
 
-HuTao-ghost: Out of all the eigenvectors, this one is my favorite. 
-Luigi-scared: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!
-HuTao-ghost: Since the eigenvectors correspond roughly to faces, perhaps we can call them... eigenfaces. The term has a cute ring to it. 
+HuTao-ghost-specter: Anyhow... an interseting side effect of our dataset being images, is that our eigenvectors are also images. 
+Luigi-nervous-specter: R-Really...? I wonder what they look like? Can I see them? 
+HuTao-playful-cuteeigenface: Of course..!
+Luigi-scared-cuteeigenface: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!
+Luigi-scared-cuteeigenface: I-I-IT IS A SPECTER!!!!!!! YOU LIED TO ME!!!! SPECTRAL THEOREM INDEED!!!!
+HuTao-playful-cuteeigenface: This is my favorite eigenvector. I'm sorry, I couldn't resist.
+HuTao-playful-cuteeigenfacealt: Here's another one.
+Luigi-scared-cuteeigenfacealt: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!
 
-Hutao-ghost: Here are the top 30 eigenvectors/eigenfaces. 
-Hutao-ghost: 
+HuTao-ghost-dpprojection: Projections here are essentially performed by taking the dot product of the image with the eigenvector.
+HuTao-ghost-dpprojection: In this case, the dot product can be thought as measuring some kind of a "similarity" between the image and the eigenvector.
+Luigi-nervous-dpprojection: I see... so the eigenvector is kind of like a "template" for the images.
+HuTao-ghost-dpprojection: Yep! That's a good way to think about it.
+
+HuTao-ghost-template1: What do you think this top eigenvector "template" is looking for in the images?
+Luigi-nervous-template1: I'm not sure... but looking at the light hair that starts to break up near the edge of the image, it's probably looking for short brightly colored hair. 
+HuTao-ghost-template1: Yep! That's a good observation. 
+HuTao-ghost-template1similar: These are some of the vectors that had the highest dot product with this eigenvector template. 
+HuTao-ghost-template1dissimilar: And these are some of the vectors that had the lowest dot product with this eigenvector template. 
+Luigi-nervous-template1dissimilar: I see... these templates do seem very useful for quickly finding trends in an image dataset. 
+
+HuTao-ghost-eigenselector: With the template idea in mind, here are the top 30 eigenvectors. You can select a combination of them and explore the dataset projection scatterplot below. Hover over a point to see the image that corresponds to it. The x-axis corresponds to the first selected eigenvector, and the y-axis corresponds to the second selected eigenvector. Pay attention to how the image dot products correspond to the eigenvector templates selected. (press next to make this text box dissappear)
+HuTao-ghost-eigenselector: 
+
+HuTao-ghost-eigenselector: Therefore...
+HuTao-ghost-eigenselector: Using the top eigenvectors as "templates" you can quickly scan through a dataset and find trends within image structure. 
+HuTao-ghost-eigenselector: In a lot of PCA analyses, people tend to only focus on the top few eigenvectors, as they're the most informative. 
+HuTao-ghost-eigenselector: However, as you can see eigenvectors outside of the top few, can also be very informative as kind of "templates" when analyzing an image dataset. 
+HuTao-ghost-eigenselector: Well, this concludes my explanation. Hopefully you now have a better understanding of PCA and its applications.
+
+Luigi-nervous-eigenselector: Uh... Thanks... Can you release Mario now?
+HuTao-ghost-eigenselector: Oh... I forgot to tell you. That really is just a picture of Mario. He's completely fine. 
+Luigi-nervous-eigenselector: Oh...
+
+Mario-normal-eigenselector: Luigi! There you are! I've been looking all over for you!
+Luigi-nervous-eigenselector: ...
+HuTao-ghost-eigenselector: Well, I'll be going now, have a nice life!
+
+HuTao-ghost-fin:
+

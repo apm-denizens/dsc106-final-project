@@ -1,7 +1,5 @@
 <script lang="ts">
 
-    export let sceneIndex: number;
-
     import { onMount } from "svelte";
     import * as d3 from "d3"
     import updateOffScreenCanvas from "../FaceDisplay/updateOffScreenCanvas"
@@ -55,7 +53,7 @@
     
 </script>
 
-<div style="padding: 10px" style:display={sceneIndex >= sceneLowerBound && sceneIndex < sceneUpperBound ? 'block' : 'none'}>
+<div style="padding: 10px">
 
     <div>
         <canvas id="eigenvector-1"></canvas>
