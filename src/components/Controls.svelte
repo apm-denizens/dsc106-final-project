@@ -11,7 +11,7 @@
     Press Left Arrow Key to go Back
     </p>
 
-    <a href="https://www.youtube.com/watch?v=bCv5rJwhCsg
+    <a style="pointer-events: auto;" href="https://www.youtube.com/watch?v=bCv5rJwhCsg
     ">demo video</a>
 
 </div>
